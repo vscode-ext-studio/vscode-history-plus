@@ -206,6 +206,9 @@ export class ApiController {
         const handler = new Hanlder(panel)
         handler.on("copyHash", data => {
             env.clipboard.writeText(data)
+        }).on("newTag", async ({ logEntry, value }) => {
+            await this.gitService.createTag(value, logEntry.hash.full);
+            logEntry.refs.push({ type: RefType.Tag, name: value });
         })
     }
 

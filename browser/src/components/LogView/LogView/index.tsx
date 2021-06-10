@@ -5,8 +5,10 @@ import { LogEntry, Ref } from '../../../definitions';
 import { LogEntriesState, RootState } from '../../../reducers';
 import BranchGraph from '../BranchGraph';
 import LogEntryList from '../LogEntryList';
-import Dialog, { DialogType } from '../../Dialog';
-import { IConfiguration } from 'src/reducers/vscode';
+import Dialog, { DialogType } from '@/components/Dialog';
+import { IConfiguration } from '@/reducers/vscode';
+import {getVscodeEvent} from '@/vscode';
+const vscodeEvent = getVscodeEvent();
 
 type LogViewProps = {
     logEntries: LogEntriesState;
@@ -157,6 +159,9 @@ class LogView extends React.Component<LogViewProps, LogViewState> {
 
     public onDialogOk = (sender: HTMLButtonElement, args: any) => {
         switch (args!.name) {
+            case 'newtag':
+                vscodeEvent.emit("newTag",{value:this.dialog.getValue(),logEntry:args.entry})
+                break;
             case 'newbranch':
             case 'newtag':
                 this.props.actionCommit(args.entry, args.name, this.dialog.getValue());

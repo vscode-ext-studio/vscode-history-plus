@@ -26,6 +26,9 @@ const browser = {
     resolve: {
         extensions: ['.js', '.ts', '.tsx'],
         mainFields: ['main'],
+        alias: {
+            '@': path.resolve(browserSourcePath, './')
+        }
     },
     devtool: isProduction ? false : 'source-map',
     module: {
