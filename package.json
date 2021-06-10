@@ -1,19 +1,19 @@
 {
-  "name": "git.history.plus",
+  "name": "git-history-plus",
   "displayName": "Git History Plus",
   "description": "View git log, file history, compare branches or commits",
   "version": "1.0.0",
   "publisher": "cweijan",
   "author": "cweijan",
   "license": "MIT",
-  "homepage": "https://github.com/cweijan/gitHistoryVSCode/blob/master/README.md",
+  "homepage": "https://github.com/cweijan/vscode-history-plus/blob/master/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cweijan/gitHistoryVSCode.git"
+    "url": "git+https://github.com/cweijan/vscode-history-plus.git"
   },
   "icon": "images/icon.png",
   "bugs": {
-    "url": "https://github.com/cweijan/gitHistoryVSCode/issues"
+    "url": "https://github.com/cweijan/vscode-history-plus/issues"
   },
   "galleryBanner": {
     "color": "#0000FF",
@@ -404,7 +404,7 @@
   "scripts": {
     "webpack-dev": "webpack --progress --colors --watch",
     "webpack": "webpack -p --progress --colors",
-    "vscode:prepublish": "npm run lint && tsc --skipLibCheck -p ./ && webpack -p --progress"
+    "vscode:prepublish": "npm run webpack"
   },
   "devDependencies": {
     "@types/chai": "^4.2.9",

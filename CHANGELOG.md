@@ -5,6 +5,7 @@
 - Remove coding rule of source code.
 - Show commit info only when the history clicked.
 - Compare history as full screen.
+- Update history view.
 
 ## v0.6.14 (14/11/2020)
 
