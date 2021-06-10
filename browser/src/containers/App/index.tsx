@@ -6,7 +6,7 @@ import SplitPane from 'react-split-pane';
 import Header from '../../components/Header';
 import Commit from '../../components/LogView/Commit';
 import LogView from '../../components/LogView/LogView';
-import { ISettings } from '../../definitions';
+import { ISettings, LogEntry } from '../../definitions';
 import { LogEntriesState, RootState } from '../../reducers';
 import { IConfiguration } from '../../reducers/vscode';
 import Footer from '../../components/Footer';
@@ -24,6 +24,7 @@ type AppProps = {
 
 interface AppState {
     percent: string;
+    logEntry?: LogEntry;
 }
 
 class App extends React.Component<AppProps, AppState> {
@@ -34,13 +35,21 @@ class App extends React.Component<AppProps, AppState> {
 
     componentDidMount() {
         document.addEventListener("contextmenu", ContextMenu.create)
-        document.addEventListener("click", event=>{
-            ContextMenu.click(event,this.onMenuClick)
+        document.addEventListener("click", event => {
+            ContextMenu.click(event, (action)=>{
+                this.onMenuClick(action)
+            })
         })
     }
 
-    private onMenuClick(action:string){
-
+    private onMenuClick(action: string) {
+        switch (action) {
+            case "copyHash":
+                console.log(this.state.logEntry?.hash)
+                break;
+            case "addTag":
+                break;
+        }
     }
 
     private goBack = async () => {
@@ -88,11 +97,12 @@ class App extends React.Component<AppProps, AppState> {
         );
     }
 
-    public onCommitClick = () => {
-        if (this.state.percent != '100%') {
-            return;
+    public onCommitClick = (logEntry: LogEntry) => {
+        let percent = '100%'
+        if (this.state.percent == '100%') {
+            percent = globalThis.fileName ? "70%" : "50%";
         }
-        this.setState({ percent: globalThis.fileName ? "70%" : "50%" })
+        this.setState({ percent, logEntry })
     };
 
     public hiddenCommit = () => {

@@ -13,7 +13,7 @@ type LogViewProps = {
     configuration: IConfiguration;
     commitsRendered: typeof ResultActions.commitsRendered;
     onViewCommit(hash?: String): void;
-    onCommitClick(): void;
+    onCommitClick(logEntry: LogEntry): void;
     actionCommit: typeof ResultActions.actionCommit;
     actionRef: typeof ResultActions.actionRef;
     getPreviousCommits: typeof ResultActions.getPreviousCommits;
@@ -71,7 +71,7 @@ class LogView extends React.Component<LogViewProps, LogViewState> {
 
     public onViewCommit = (logEntry: LogEntry) => {
         this.props.onViewCommit(logEntry.hash.full);
-        this.props.onCommitClick();
+        this.props.onCommitClick(logEntry);
     };
 
     public onRefAction = (logEntry: LogEntry, ref: Ref, name: string) => {
