@@ -57,13 +57,12 @@ class App extends React.Component<AppProps, AppState> {
                         primary="first"
                     >
                         <LogView logEntries={this.props.logEntries} configuration={this.props.configuration} onCommitClick={this.onCommitClick}></LogView>
-                        {this.props.logEntries && this.props.logEntries.selected ? (
-                            <Commit onCloseCommitView={this.hiddenCommit} />
-                        ) : (
+                        {this.props.logEntries && this.props.logEntries.selected ?
+                            <Commit onCloseCommitView={this.hiddenCommit} /> :
                             <div className="detail-view-info">
                                 <div>Pick a commit from the list to view details</div>
                             </div>
-                        )}
+                        }
                     </SplitPane>
                     <Footer
                         canGoBack={this.props.logEntries.pageIndex > 0}

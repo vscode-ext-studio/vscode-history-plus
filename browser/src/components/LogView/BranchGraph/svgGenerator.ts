@@ -280,7 +280,7 @@ export function drawGitGraph(
     if (hideGraph) {
         for (let i = 0; i < content.children.length; i += 1) {
             const element = content.children[i];
-            element.setAttribute('style', element.getAttribute('style') + ';padding-left:0px');
+            element.setAttribute('style', (element.getAttribute('style') || "") + ';padding-left:0px');
         }
         svg.style.display = 'none';
         return;
@@ -330,7 +330,7 @@ export function drawGitGraph(
         let removedBranches = 0;
         let branchFound = i === startAt ? true : false;
         let padParentCount = 0;
-        for (let j = 0; j < branches.length; ) {
+        for (let j = 0; j < branches.length;) {
             const branch = branches[j];
             if (branch.hash === entry.hash.full) {
                 branchFound = true;
@@ -579,12 +579,12 @@ export function drawGitGraph(
         }
         const minLeft = Math.min(maxLeft, 3);
         const left = element ? Math.max(minLeft, (element as any).branchesOnLeft) : minLeft;
-        const originalStyle = element.getAttribute('style');
+        const originalStyle = element.getAttribute('style') || "";
         element.setAttribute('style', originalStyle + ';padding-left:' + (left + 1) * lastXOffset + 'px');
         try {
             const pointsAtY = lines.map(points => getPointAtY((i + 1) * logEntryHeight, points));
             const maxX = Math.max(...pointsAtY.map(p => p.x));
-            element.setAttribute('style', `${originalStyle};padding-left:${maxX + 12}px`);
+            element.setAttribute('style', `${originalStyle};padding-left:${maxX + 5}px`);
         } catch (ex) {
             console.error('Failed to set padding of commit', ex);
         }
