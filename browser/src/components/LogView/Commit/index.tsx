@@ -37,19 +37,11 @@ class Commit extends React.Component<CommitProps, CommitState> {
     }
 
     public componentDidUpdate(prevProps: CommitProps) {
-        if (
-            prevProps.selectedEntry &&
-            this.props.selectedEntry &&
-            this.props.selectedEntry !== prevProps.selectedEntry
-        ) {
-            this.setState({ searchText: '' });
-        }
-
         this.ref.focus();
     }
 
     public componentDidMount() {
-        this.setState({ searchText: '' });
+        this.setState({ searchText: globalThis.fileName });
     }
 
     private onActionFile = (fileEntry: CommittedFile, name) => {
