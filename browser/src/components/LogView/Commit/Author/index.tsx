@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { ActionedDetails } from '../../../../definitions';
 import { RootState } from '../../../../reducers/index';
 import { ResultActions } from '../../../../actions/results';
-import { GoEye } from 'react-icons/go';
+var format = require('date-format');
 
 type AuthorProps = {
     result: ActionedDetails;
@@ -22,7 +22,7 @@ export function Author(props: AuthorProps) {
             <span className="name hint--right hint--rounded hint--bounce" aria-label={props.result.email}>
                 {props.result.name}
             </span>
-            <span className="timestamp"> on {formatDateTime(props.locale, props.result.date)}</span>
+            <span className="timestamp"> {formatDateTime(props.locale, props.result.date)}</span>
         </div>
     );
 }
@@ -31,21 +31,7 @@ function formatDateTime(locale: string, date?: Date) {
     if (date && typeof date.toLocaleDateString !== 'function') {
         return '';
     }
-
-    const dateOptions = {
-        weekday: 'short',
-        day: 'numeric',
-        month: 'short',
-        year: 'numeric',
-        hour: 'numeric',
-        minute: 'numeric',
-    };
-    try {
-        locale = typeof locale === 'string' ? locale.replace('_', '-') : locale;
-        return date.toLocaleString(locale);
-    } catch {
-        return date.toLocaleString(undefined, dateOptions as any);
-    }
+    return format.asString( "yyyy-MM-dd hh:mm",date);
 }
 
 function mapStateToProps(state: RootState, wrapper: { result: ActionedDetails }) {
