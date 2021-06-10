@@ -10,6 +10,7 @@ import { ISettings } from '../../definitions';
 import { LogEntriesState, RootState } from '../../reducers';
 import { IConfiguration } from '../../reducers/vscode';
 import Footer from '../../components/Footer';
+import { ContextMenu } from './ContextMenu';
 
 type AppProps = {
     configuration: IConfiguration;
@@ -29,6 +30,17 @@ class App extends React.Component<AppProps, AppState> {
     constructor(props?: AppProps, context?: any) {
         super(props, context);
         this.state = { percent: "100%" }
+    }
+
+    componentDidMount() {
+        document.addEventListener("contextmenu", ContextMenu.create)
+        document.addEventListener("click", event=>{
+            ContextMenu.click(event,this.onMenuClick)
+        })
+    }
+
+    private onMenuClick(action:string){
+
     }
 
     private goBack = async () => {
