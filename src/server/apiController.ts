@@ -1,4 +1,4 @@
-import { Uri, ViewColumn, Webview, WebviewPanel } from 'vscode';
+import { env, Uri, ViewColumn, Webview, WebviewPanel } from 'vscode';
 import { IAvatarProvider } from '../adapter/avatar/types';
 import { GitOriginType } from '../adapter/repository/index';
 import { IApplicationShell } from '../application/types';
@@ -8,23 +8,18 @@ import { CommitDetails, FileCommitDetails } from '../common/types';
 import { IServiceContainer } from '../ioc/types';
 import { Avatar, BranchSelection, CommittedFile, IGitService, IPostMessage, LogEntry, Ref, RefType } from '../types';
 import { captureTelemetry } from '../common/telemetry';
+import { Hanlder } from './handler';
 
 export class ApiController {
     private readonly commitViewer: IGitCommitViewDetailsCommandHandler;
     private readonly applicationShell: IApplicationShell;
-    constructor(
-        private webviewPanel: WebviewPanel,
-        private webview: Webview,
-        private gitService: IGitService,
-        private serviceContainer: IServiceContainer,
-        private commandManager: ICommandManager,
-    ) {
-        this.commitViewer = this.serviceContainer.get<IGitCommitViewDetailsCommandHandler>(
-            IGitCommitViewDetailsCommandHandler,
-        );
+    constructor(private webviewPanel: WebviewPanel, private webview: Webview,
+        private gitService: IGitService, private serviceContainer: IServiceContainer,
+        private commandManager: ICommandManager) {
+        this.commitViewer = this.serviceContainer.get<IGitCommitViewDetailsCommandHandler>(IGitCommitViewDetailsCommandHandler);
         this.applicationShell = this.serviceContainer.get<IApplicationShell>(IApplicationShell);
-
         this.webview.onDidReceiveMessage(this.postMessageParser.bind(this));
+        this.dispatchHandler(webviewPanel);
     }
 
     public async getLogEntries(args: any) {
@@ -67,6 +62,7 @@ export class ApiController {
             pageSize,
         };
     }
+
     public async getBranches() {
         return this.gitService.getBranches();
     }
@@ -206,8 +202,16 @@ export class ApiController {
         return committedFile;
     }
 
+    private dispatchHandler(panel: WebviewPanel) {
+        const handler = new Hanlder(panel)
+        handler.on("copyHash", data => {
+            env.clipboard.writeText(data)
+        })
+    }
+
     private postMessageParser = async (message: IPostMessage) => {
         try {
+            console.log(message)
             const result = await this[message.cmd].bind(this)(message.payload);
             this.webview.postMessage({
                 requestId: message.requestId,

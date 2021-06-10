@@ -11,6 +11,9 @@ import { LogEntriesState, RootState } from '../../reducers';
 import { IConfiguration } from '../../reducers/vscode';
 import Footer from '../../components/Footer';
 import { ContextMenu } from './ContextMenu';
+import {getVscodeEvent  } from '../../vscode';
+
+const vscodeEvent = getVscodeEvent();
 
 type AppProps = {
     configuration: IConfiguration;
@@ -36,7 +39,7 @@ class App extends React.Component<AppProps, AppState> {
     componentDidMount() {
         document.addEventListener("contextmenu", ContextMenu.create)
         document.addEventListener("click", event => {
-            ContextMenu.click(event, (action)=>{
+            ContextMenu.click(event, (action) => {
                 this.onMenuClick(action)
             })
         })
@@ -45,6 +48,7 @@ class App extends React.Component<AppProps, AppState> {
     private onMenuClick(action: string) {
         switch (action) {
             case "copyHash":
+                vscodeEvent.emit('copyHash',this.state.logEntry?.hash?.full)
                 console.log(this.state.logEntry?.hash)
                 break;
             case "addTag":
@@ -98,8 +102,8 @@ class App extends React.Component<AppProps, AppState> {
     }
 
     public onCommitClick = (logEntry: LogEntry) => {
-        let percent = '100%'
-        if (this.state.percent == '100%') {
+        let percent = this.state.percent
+        if (percent == '100%') {
             percent = globalThis.fileName ? "70%" : "50%";
         }
         this.setState({ percent, logEntry })
