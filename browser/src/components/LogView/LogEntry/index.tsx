@@ -124,13 +124,6 @@ class LogEntryView extends React.Component<ResultListProps, {}> {
                                 {this.renderTagRef()}
                             </div>
                             <div>
-                                <div className="commit-author">
-                                    <span role="button" className="btnx hint--left hint--rounded hint--bounce" aria-label="Cherry pick, Compare, etc" >
-                                        <a role="button" onClick={handleClickAndPreventPropagation(() => this.props.onAction(this.props.logEntry, 'more'),)} >
-                                            <GoGitCommit></GoGitCommit>More
-                                    </a>
-                                    </span>
-                                </div>
                                 <Avatar result={this.props.logEntry.author}></Avatar>
                                 <Author result={this.props.logEntry.author}></Author>
                             </div>

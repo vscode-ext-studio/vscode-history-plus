@@ -52,10 +52,7 @@ class App extends React.Component<AppProps, AppState> {
                 vscodeEvent.emit('copyHash', this.state.logEntry?.hash?.full)
                 console.log(this.state.logEntry?.hash)
                 break;
-            case "newtag":
-            case "newbranch":
-            case "reset_soft":
-            case "reset_hard":
+            default:
                 this.logView.onAction(this.state.logEntry, action)
                 break;
         }

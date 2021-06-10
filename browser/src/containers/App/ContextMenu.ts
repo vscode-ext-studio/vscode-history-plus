@@ -30,6 +30,7 @@ export class ContextMenu {
 <li class="contextMenuDivider"></li>
 <li class="contextMenuItem" m-action="reset_soft" data-index="1">Reset Soft To Here</li>
 <li class="contextMenuItem" m-action="reset_hard" data-index="1">Reset Hard To Here</li>
+<li class="contextMenuItem" m-action="more" data-index="1">More...</li>
 <li class="contextMenuDivider"></li>
 <li class="contextMenuItem" m-action="newbranch" data-index="1">New Branch...</li>
 <li class="contextMenuItem" m-action="newtag" data-index="0">New Tag...</li>

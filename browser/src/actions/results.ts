@@ -28,7 +28,6 @@ export namespace ResultActions {
     export const actionCommit = (logEntry: LogEntry, name = '', value = '') => {
         return async (dispatch: Dispatch<any>, getState: () => RootState) => {
             dispatch(notifyIsFetchingCommit(logEntry.hash.full));
-            console.log('name')
             vscodeEvent.emit(name, { logEntry, value })
                 .on("reset", () => {
                     dispatch(ResultActions.refresh());
