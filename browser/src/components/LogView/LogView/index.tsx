@@ -16,6 +16,7 @@ type LogViewProps = {
     commitsRendered: typeof ResultActions.commitsRendered;
     onViewCommit(hash?: String): void;
     onCommitClick(logEntry: LogEntry): void;
+    onRef(logView: LogView): void;
     actionCommit: typeof ResultActions.actionCommit;
     actionRef: typeof ResultActions.actionRef;
     getPreviousCommits: typeof ResultActions.getPreviousCommits;
@@ -34,6 +35,7 @@ class LogView extends React.Component<LogViewProps, LogViewState> {
     }
 
     public componentDidUpdate() {
+        this.props.onRef(this)
         const el = this.ref.current.ref;
 
         if (this.props.logEntries.selected) {

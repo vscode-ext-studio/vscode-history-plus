@@ -31,6 +31,7 @@ interface AppState {
 }
 
 class App extends React.Component<AppProps, AppState> {
+    logView: LogView;
     constructor(props?: AppProps, context?: any) {
         super(props, context);
         this.state = { percent: "100%" }
@@ -81,7 +82,7 @@ class App extends React.Component<AppProps, AppState> {
                         style={{ paddingTop: '40px' }}
                         primary="first"
                     >
-                        <LogView logEntries={this.props.logEntries} configuration={this.props.configuration} onCommitClick={this.onCommitClick}></LogView>
+                        <LogView onRef={ref=>this.logView=ref} logEntries={this.props.logEntries} configuration={this.props.configuration} onCommitClick={this.onCommitClick}></LogView>
                         {this.props.logEntries && this.props.logEntries.selected ?
                             <Commit onCloseCommitView={this.hiddenCommit} /> :
                             <div className="detail-view-info">
