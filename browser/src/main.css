@@ -293,8 +293,13 @@ div.appRoot > header {
 	color: var(--vscode-textLink-foreground);
 }
 
-.log-entry.loading {
-	background-color: #ffffff11;
+.log-entry .media:hover {
+	background-color:  var(--vscode-editorSuggestWidget-background);
+	color: var(--vscode-textLink-foreground);
+}
+
+.log-entry.loading .media{
+	background-color:  var(--vscode-editorSuggestWidget-background);
 }
 
 
