@@ -9,9 +9,9 @@ export type BranchGrapProps = {
 
 let branches: { hash: string; path: any; x?: number; wasFictional: boolean }[] = [];
 let branchColor = 0;
-const COLORS = [
+let COLORS = [
     '#ffab1d',
-    '#fd8c25',
+    '#fd8c25', // primary color
     '#f36e4a',
     '#fc6148',
     '#d75ab6',
@@ -263,17 +263,19 @@ class PathGenerator {
     }
 }
 
+let vscodeStyle = null;
+function get(name: string) {
+    return vscodeStyle.getPropertyValue(name)
+}
+
 // TODO: Think about appending (could be very expensive, but could be something worthwhile)
 // Appending could produce a better UX
 // Dunno, I think, cuz this way you can see where merges take place, rather than seeing a line vanish off
-export function drawGitGraph(
-    svg: SVGSVGElement,
-    content: HTMLElement,
-    startAt: number,
-    logEntryHeight = 60.8,
-    entries: LogEntry[],
-    hideGraph = false,
-) {
+export function drawGitGraph(svg: SVGSVGElement, content: HTMLElement, startAt: number, logEntryHeight = 60.8, entries: LogEntry[], hideGraph = false,) {
+    if (!vscodeStyle) {
+        vscodeStyle = document.documentElement.style
+        COLORS[1] = get('--vscode-terminal-ansiBrightBlue') || '#fd8c25';
+    }
     while (svg.children.length > 0) {
         svg.removeChild(svg.children[0]);
     }
