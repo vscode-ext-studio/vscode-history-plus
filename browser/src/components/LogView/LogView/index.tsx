@@ -189,10 +189,8 @@ function mapDispatchToProps(dispatch) {
     return {
         commitsRendered: (height: number) => dispatch(ResultActions.commitsRendered(height)),
         onViewCommit: (hash: string) => dispatch(ResultActions.selectCommit(hash)),
-        actionCommit: (logEntry: LogEntry, name: string, value = '') =>
-            dispatch(ResultActions.actionCommit(logEntry, name, value)),
-        actionRef: (logEntry: LogEntry, ref: Ref, name: string) =>
-            dispatch(ResultActions.actionRef(logEntry, ref, name)),
+        actionCommit: (logEntry: LogEntry, name: string, value = '') => dispatch(ResultActions.actionCommit(logEntry, name, value)),
+        actionRef: (logEntry: LogEntry, ref: Ref, name: string) => dispatch(ResultActions.actionRef(logEntry, ref, name)),
         getNextCommits: () => dispatch(ResultActions.getNextCommits()),
         getPreviousCommits: () => dispatch(ResultActions.getPreviousCommits()),
     };

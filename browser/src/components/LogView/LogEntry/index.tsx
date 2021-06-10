@@ -103,7 +103,7 @@ class LogEntryView extends React.Component<ResultListProps, {}> {
             cssClassName += ' loading';
         }
         function handleClickAndPreventPropagation(handler: Function) {
-            return function(event: React.MouseEvent<HTMLElement, MouseEvent>) {
+            return function (event: React.MouseEvent<HTMLElement, MouseEvent>) {
                 event.preventDefault();
                 event.stopPropagation();
                 handler();
@@ -117,93 +117,22 @@ class LogEntryView extends React.Component<ResultListProps, {}> {
             <div className={cssClassName} onContextMenu={() => this.props.onViewCommit(this.props.logEntry)} onClick={() => this.props.onViewCommit(this.props.logEntry)}>
                 <div className="media right">
                     <div className="media-image">
-                        <div className="ref" onClick={preventPropagation}>
-                            {this.renderRemoteRefs()}
-                            {this.renderHeadRef()}
-                            {this.renderTagRef()}
-                        </div>
-                        <div className="buttons" onContextMenu={() => this.props.onViewCommit(this.props.logEntry)}  onClick={() => this.props.onViewCommit(this.props.logEntry)}>
+                        <div className="buttons" onContextMenu={() => this.props.onViewCommit(this.props.logEntry)} onClick={() => this.props.onViewCommit(this.props.logEntry)}>
+                            <div className="ref" onClick={preventPropagation}>
+                                {this.renderRemoteRefs()}
+                                {this.renderHeadRef()}
+                                {this.renderTagRef()}
+                            </div>
                             <div>
-                                <CopyToClipboard text={this.props.logEntry.hash.full}>
-                                    <span
-                                        className="btnx hash clipboard hint--left hint--rounded hint--bounce"
-                                        aria-label="Copy hash to clipboard"
-                                    >
-                                        {this.props.logEntry.hash.short}&nbsp;
-                                        <GoClippy></GoClippy>
+                                <div className="commit-author">
+                                    <span role="button" className="btnx hint--left hint--rounded hint--bounce" aria-label="Cherry pick, Compare, etc" >
+                                        <a role="button" onClick={handleClickAndPreventPropagation(() => this.props.onAction(this.props.logEntry, 'more'),)} >
+                                            <GoGitCommit></GoGitCommit>More
+                                    </a>
                                     </span>
-                                </CopyToClipboard>
-                                &nbsp;
-                                <span
-                                    role="button"
-                                    className="btnx hint--left hint--rounded hint--bounce"
-                                    aria-label="Soft reset to this commit"
-                                >
-                                    <a
-                                        role="button"
-                                        onClick={handleClickAndPreventPropagation(() =>
-                                            this.props.onAction(this.props.logEntry, 'reset_soft'),
-                                        )}
-                                    >
-                                        <GoFileSymlinkFile></GoFileSymlinkFile>Soft
-                                    </a>
-                                </span>
-                                <span
-                                    role="button"
-                                    className="btnx hint--left hint--rounded hint--bounce"
-                                    aria-label="Hard reset to this commit"
-                                >
-                                    <a
-                                        role="button"
-                                        onClick={handleClickAndPreventPropagation(() =>
-                                            this.props.onAction(this.props.logEntry, 'reset_hard'),
-                                        )}
-                                    >
-                                        <GoFileSymlinkDirectory></GoFileSymlinkDirectory>Hard
-                                    </a>
-                                </span>
-                                <span
-                                    role="button"
-                                    className="btnx hint--left hint--rounded hint--bounce"
-                                    aria-label="Create a new tag"
-                                >
-                                    <a
-                                        role="button"
-                                        onClick={handleClickAndPreventPropagation(() =>
-                                            this.props.onAction(this.props.logEntry, 'newtag'),
-                                        )}
-                                    >
-                                        <GoPlus></GoPlus>Tag
-                                    </a>
-                                </span>
-                                <span
-                                    role="button"
-                                    className="btnx hint--left hint--rounded hint--bounce"
-                                    aria-label="Create a new branch from here"
-                                >
-                                    <a
-                                        role="button"
-                                        onClick={handleClickAndPreventPropagation(() =>
-                                            this.props.onAction(this.props.logEntry, 'newbranch'),
-                                        )}
-                                    >
-                                        <GoPlus></GoPlus>Branch
-                                    </a>
-                                </span>
-                                <span
-                                    role="button"
-                                    className="btnx hint--left hint--rounded hint--bounce"
-                                    aria-label="Cherry pick, Compare, etc"
-                                >
-                                    <a
-                                        role="button"
-                                        onClick={handleClickAndPreventPropagation(() =>
-                                            this.props.onAction(this.props.logEntry, 'more'),
-                                        )}
-                                    >
-                                        <GoGitCommit></GoGitCommit>More
-                                    </a>
-                                </span>
+                                </div>
+                                <Avatar result={this.props.logEntry.author}></Avatar>
+                                <Author result={this.props.logEntry.author}></Author>
                             </div>
                         </div>
                     </div>
@@ -212,8 +141,6 @@ class LogEntryView extends React.Component<ResultListProps, {}> {
                             {gitmojify(this.props.logEntry.subject)}
                             <span style={{ marginLeft: '.5em' }}>{this.isLoading() ? this.showLoading() : ''}</span>
                         </div>
-                        <Avatar result={this.props.logEntry.author}></Avatar>
-                        <Author result={this.props.logEntry.author}></Author>
                     </div>
                 </div>
             </div>

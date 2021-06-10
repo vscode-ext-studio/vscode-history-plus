@@ -121,7 +121,7 @@ div.appRoot > header {
 	overflow: hidden;
     cursor: pointer;
     min-width: 15em;
-    padding: 0.5em;
+    padding: 0.3em 1.2em;
 }
 
 .log-entry .media-image {
@@ -139,14 +139,14 @@ div.appRoot > header {
 }
 
 .log-entry .media-image > div.buttons {
-	margin-top: .5em;
+	margin-top: 0;
 	margin-bottom: 0px;
 	display: flex;
 	justify-content: flex-end;
 }
 
 .log-entry .media-image > div.buttons > div {
-	background-color: var(--vscode-scrollbarSlider-background);
+	/* background-color: var(--vscode-scrollbarSlider-background); */
 	padding: .3em .5em .3em 0em;
 	font-size: 75%;
 	font-weight: normal;
@@ -155,6 +155,7 @@ div.appRoot > header {
 
 .log-entry .media-image > div.buttons .btnx {
 	margin-left: .5em;
+	margin-right: .5em;
 }
 
 .log-entry .media-image > div.buttons svg {
@@ -190,11 +191,11 @@ div.appRoot > header {
 }
 
 .commit-author {
-	font-size: 0.8em;
+	font-size: 14px;
 	margin-top: 0.2em;
 	position: relative;
 	white-space: nowrap;
-	display: block;
+	display: inline-block;
 	text-overflow: ellipsis;
 	overflow: hidden;
 }
@@ -213,6 +214,13 @@ div.appRoot > header {
 	border-radius: 5px;
 	margin-left: .3em;
 	white-space: nowrap;
+	display: inline-block;
+}
+
+.commit-remote-container a,
+.commit-tag-container a,
+.commit-head-container a{
+	color: unset !important;
 }
 
 .commit-head-container {

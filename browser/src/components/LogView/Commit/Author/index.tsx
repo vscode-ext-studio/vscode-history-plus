@@ -19,16 +19,6 @@ export function Author(props: AuthorProps) {
     }
     return (
         <div className="commit-author">
-            <span
-                role="button"
-                style={{ fontSize: '130%', marginRight: '0.2em' }}
-                className="btnx hint--right hint--rounded hint--bounce"
-                aria-label="Filter by author"
-            >
-                <a role="button" onClick={selectAuthor}>
-                    <GoEye></GoEye>
-                </a>
-            </span>
             <span className="name hint--right hint--rounded hint--bounce" aria-label={props.result.email}>
                 {props.result.name}
             </span>
@@ -54,7 +44,7 @@ function formatDateTime(locale: string, date?: Date) {
         locale = typeof locale === 'string' ? locale.replace('_', '-') : locale;
         return date.toLocaleString(locale);
     } catch {
-        return date.toLocaleString(undefined, dateOptions);
+        return date.toLocaleString(undefined, dateOptions as any);
     }
 }
 
