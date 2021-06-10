@@ -35,7 +35,7 @@ class Commit extends React.Component<CommitProps, CommitState> {
     }
 
     public componentDidMount() {
-        this.setState({ searchText: globalThis.fileName });
+        this.setState({ searchText: globalThis.fileName != 'null' ? globalThis.fileName : "" });
     }
 
     private onActionFile = (fileEntry: CommittedFile, name) => {
