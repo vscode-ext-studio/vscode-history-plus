@@ -71,35 +71,11 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
             return <span></span>;
         }
 
-        switch (selectedBranch.remoteType) {
-            case 2:
-                return (
-                    <a
-                        className="hint--right hint--rounded hint--bounce"
-                        aria-label="Open repository on Github"
-                        href={selectedBranch.remote.replace(/\.git$/, '') + '/tree/' + encodeURI(selectedBranch.name)}
-                    >
-                        <GoMarkGithub />
-                    </a>
-                );
-            case 3:
-                const m = selectedBranch.remote.match(/:(\w+)\/(.*)/);
-                if (m) {
-                    return (
-                        <a
-                            className="hint--right hint--rounded hint--bounce"
-                            aria-label="Open repository on Bitbucket"
-                            href={
-                                'https://bitbucket.org/' + m[1] + '/' + m[2] + '/src/' + encodeURI(selectedBranch.name)
-                            }
-                        >
-                            <GoBrowser />
-                        </a>
-                    );
-                }
-        }
-
-        return <span></span>;
+        return (
+            <a className="hint--right hint--rounded hint--bounce" aria-label="Open Remote Repository" href={selectedBranch.remote} >
+                <GoMarkGithub />
+            </a>
+        );
     }
 
     private handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

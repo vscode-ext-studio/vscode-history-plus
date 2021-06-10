@@ -79,7 +79,7 @@ div.appRoot {
 
 div.appRoot > header {
 	z-index: 1000;
-	display: flex;
+	display: flow-root;
 }
 
 .log-view {
