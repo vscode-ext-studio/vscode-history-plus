@@ -131,40 +131,6 @@ export class ApiController {
     }
 
     @captureTelemetry()
-    public async doAction(args: any) {
-        const gitRoot = this.gitService.getGitRoot();
-        const branch = this.gitService.getCurrentBranch();
-
-        const actionName = args.name;
-        const value: string = decodeURIComponent(args.value);
-        const logEntry: LogEntry = args.logEntry;
-
-        switch (actionName) {
-            default:
-                await this.commandManager.executeCommand(
-                    'git.commit.doSomething',
-                    new CommitDetails(gitRoot, branch, logEntry),
-                );
-                break;
-            case 'newtag':
-                await this.gitService.createTag(value, logEntry.hash.full);
-                logEntry.refs.push({ type: RefType.Tag, name: value });
-                break;
-            case 'newbranch':
-                await this.gitService.createBranch(value, logEntry.hash.full);
-                logEntry.refs.push({ type: RefType.Head, name: value });
-                break;
-            case 'reset_hard':
-                await this.gitService.reset(logEntry.hash.full, true);
-                break;
-            case 'reset_soft':
-                await this.gitService.reset(logEntry.hash.full);
-        }
-
-        return logEntry;
-    }
-
-    @captureTelemetry()
     public async doActionFile(args: any) {
         const actionName = args.name;
         const logEntry = args.logEntry as LogEntry;
@@ -219,6 +185,10 @@ export class ApiController {
         }).on("reset_hard", async ({ logEntry }) => {
             await this.gitService.reset(logEntry.hash.full, true);
             handler.emit('reset')
+        }).on("more", async ({ logEntry }) => {
+            const gitRoot = this.gitService.getGitRoot();
+            const branch = this.gitService.getCurrentBranch();
+            await this.commandManager.executeCommand('git.commit.doSomething', new CommitDetails(gitRoot, branch, logEntry),);
         })
     }
 

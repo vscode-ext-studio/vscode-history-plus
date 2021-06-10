@@ -198,7 +198,7 @@ class LogEntryView extends React.Component<ResultListProps, {}> {
                                     <a
                                         role="button"
                                         onClick={handleClickAndPreventPropagation(() =>
-                                            this.props.onAction(this.props.logEntry, ''),
+                                            this.props.onAction(this.props.logEntry, 'more'),
                                         )}
                                     >
                                         <GoGitCommit></GoGitCommit>More
