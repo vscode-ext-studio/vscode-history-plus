@@ -1,4 +1,4 @@
-import { Uri, Webview } from 'vscode';
+import { Uri, ViewColumn, Webview, WebviewPanel } from 'vscode';
 import { IAvatarProvider } from '../adapter/avatar/types';
 import { GitOriginType } from '../adapter/repository/index';
 import { IApplicationShell } from '../application/types';
@@ -13,6 +13,7 @@ export class ApiController {
     private readonly commitViewer: IGitCommitViewDetailsCommandHandler;
     private readonly applicationShell: IApplicationShell;
     constructor(
+        private webviewPanel: WebviewPanel,
         private webview: Webview,
         private gitService: IGitService,
         private serviceContainer: IServiceContainer,
@@ -184,12 +185,14 @@ export class ApiController {
                 await this.commandManager.executeCommand('git.commit.FileEntry.ViewFileContents', fileCommitDetails);
                 break;
             case 'compare_workspace':
+                this.webviewPanel.reveal(ViewColumn.One)
                 await this.commandManager.executeCommand(
                     'git.commit.FileEntry.CompareAgainstWorkspace',
                     fileCommitDetails,
                 );
                 break;
             case 'compare_previous':
+                this.webviewPanel.reveal(ViewColumn.One)
                 await this.commandManager.executeCommand(
                     'git.commit.FileEntry.CompareAgainstPrevious',
                     fileCommitDetails,
