@@ -1,0 +1,648 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
+@import "~hint.css/hint.min.css";
+
+*,
+*:before,
+*:after {
+	box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+	background-color: var(--vscode-scrollbarSlider-background);
+}
+::-webkit-scrollbar-thumb {
+    background-color: var(--vscode-scrollbarSlider-hoverBackground);
+}
+
+::-webkit-scrollbar-track {
+    background-color: transparent;
+}
+
+html,
+body {
+	background-color: var(--vscode-editor-background);
+	font-family: var(--vscode-font-family);
+	height: 100%;
+	width: 100%;
+	overflow: hidden;
+	color: var(--vscode-editor-foreground)
+}
+
+.hidden {
+	display: none !important;
+}
+
+.disabled {
+	pointer-events: none;
+}
+
+.btnx {
+	cursor: pointer;
+	margin: 0;
+	padding: 0;
+	border-style: none;
+}
+
+.media {
+	display: flex;
+	align-items: flex-start;
+}
+
+.media .media-image {
+	margin: 0 1em 0 0;
+}
+
+.media .media-content {
+	flex: 1;
+}
+
+.media.right {
+	flex-direction: row-reverse;
+	justify-content: flex-end;
+}
+
+.media.right .media-image {
+	margin: 0.8em 0.3em 0 0;
+}
+
+div.appRootParent {
+	height: 100vh;
+	overflow: hidden;
+}
+div.appRoot {
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}
+
+.log-view {
+	position: relative;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 100vh;
+}
+
+.log-view svg.commitGraph {
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.log-view svg.commitGraph path {
+	stroke-width: 3;
+	fill: none;
+}
+
+.log-view svg.commitGraph circle {
+	stroke: white;
+	stroke-width: 0.1em;
+	fill: #333;
+}
+
+
+.log-entry {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: var(--vscode-editorGroup-border);
+}
+
+.log-entry {
+	position: relative;
+}
+
+.log-entry-gray{
+	color: gray;
+}
+
+.log-entry .media-content {
+	position: relative;
+	overflow: hidden;
+    cursor: pointer;
+    min-width: 15em;
+    padding: 0.5em;
+}
+
+.log-entry .media-image {
+	min-width: 6em;
+	display: flex;
+	flex-direction: column;
+}
+
+.log-entry .media-image > div.ref {
+	min-width: 1em;
+	height: 20px;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+}
+
+.log-entry .media-image > div.buttons {
+	margin-top: .5em;
+	margin-bottom: 0px;
+	display: flex;
+	justify-content: flex-end;
+}
+
+.log-entry .media-image > div.buttons > div {
+	background-color: var(--vscode-scrollbarSlider-background);
+	padding: .3em .5em .3em 0em;
+	font-size: 75%;
+	font-weight: normal;
+	text-align: right;
+}
+
+.log-entry .media-image > div.buttons .btnx {
+	margin-left: .5em;
+}
+
+.log-entry .media-image > div.buttons svg {
+	font-size: 115%;
+	margin-right: .1em;
+	margin-top: -2px;
+	vertical-align: middle;
+}
+
+.log-entry .media-image > div.buttons .hash {
+	font-family: monospace;
+}
+
+.log-entry .media-image > div.buttons a {
+	color: var(--vscode-textLink-foreground);
+}
+
+.log-entry .media-image > div.buttons a:hover {
+	text-decoration: none;
+}
+
+.log-entry .commit-subject {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.log-entry img.avatar {
+	height:15px;
+    width:15px;
+    float:left;
+    margin:0.4em 0.4em 0em 0em;
+}
+
+.commit-author {
+	font-size: 0.8em;
+	margin-top: 0.2em;
+	position: relative;
+	white-space: nowrap;
+	display: block;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+
+.commit-author svg {
+	vertical-align: middle;
+}
+
+.commit-author .timestamp {
+	opacity: 0.7;
+}
+
+.commit-remote-container,
+.commit-tag-container,
+.commit-head-container {
+	border-radius: 5px;
+	margin-left: .3em;
+	white-space: nowrap;
+}
+
+.commit-head-container {
+	background-color: var(--vscode-editorGutter-addedBackground);
+}
+
+.commit-remote-container {
+	background-color: var(--vscode-editorGutter-deletedBackground);
+}
+
+.commit-tag-container {
+	background-color: var(--vscode-terminal-ansiBrightBlack);
+}
+
+.commit-remote-container .refs,
+.commit-tag-container .refs,
+.commit-head-container .refs {
+	display: block;
+	color: white;
+	font-size: 75%;
+    padding: 0.25em 0.5em;
+    display: flex;
+}
+
+.commit-remote-container .refs span,
+.commit-tag-container .refs span,
+.commit-head-container .refs span {
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    display: inline-block;
+}
+.refs a.remove {
+	color: #ff6565;
+    border-left: 1px solid var(--vscode-editorGroup-border);
+    margin-left: 5px;
+    padding-left: 5px;
+    font-size: 140%;
+    line-height: 10px;
+}
+
+.refs a.checkout, .refs a.checkout:hover {
+	color: white;
+}
+
+.commit-remote-container .refs span:first-child,
+.commit-tag-container .refs span:first-child,
+.commit-head-container .refs span:first-child {
+    padding-right: 0.2em;
+}
+
+.commit-hash-container > div {
+	display: inline-block;
+	color: var(--vscode-input-foreground);
+	padding: 0.2em;
+	cursor: pointer;
+}
+
+.commit-hash-container svg {
+	color: var(--vscode-input-foreground);
+}
+
+.commit-hash-container > div:hover {
+	background-color: hsla(0, 0%, 100%, 0.12);
+}
+
+.log-entry.active .commit-subject, .log-entry.active .commit-author {
+	color: var(--vscode-textLink-foreground);
+}
+
+.log-entry.loading {
+	background-color: #ffffff11;
+}
+
+header {
+    margin-bottom: 0.5em;
+}
+
+header input, header button {
+    margin: 0.2em;
+}
+
+header .links svg {
+	vertical-align: middle;
+}
+
+header .links {
+	display: inline-block;
+	margin-left: 1em;
+	font-size: 130%;
+	vertical-align: middle;
+}
+
+/* Navigation*/
+
+#history-navbar {
+	text-align: right;
+	/* Approximation for scroll bar width of 15px*/
+	margin: 0.5em 1em;
+}
+
+#history-navbar .navbar {
+	list-style: none;
+	display: inline-flex;
+	font-size: 12px;
+	border: 1px solid hsla(0, 0%, 0%, 0.2);
+	background-color: hsla(204, 70%, 40%, 1);
+	padding: 0;
+    margin: 0;
+    min-height: inherit;
+    border-radius: 0;
+}
+
+.navbar .navbar-item {
+	text-align: center;
+	color: white;
+	overflow: hidden;
+	white-space: nowrap;
+}
+
+.navbar-item .navbar-link {
+	color: currentcolor;
+	text-decoration: none;
+	cursor: pointer;
+	display: block;
+	line-height: 22px;
+	padding: 0 1em;
+}
+
+.navbar-item .navbar-link:hover {
+	/* hover style for the link, uses vscode's styles */
+	background-color: hsla(0, 0%, 100%, 0.12);
+}
+
+.navbar-item.previous .navbar-link {
+	border-right: 1px solid hsla(0, 0%, 100%, 0.5);
+}
+
+.navbar-item .octicon {
+	/* align the icons with text */
+	vertical-align: -10%;
+}
+
+.navbar-item.previous .octicon {
+	margin: 0 5px 0 0;
+}
+
+.navbar-item.next .octicon {
+	margin: 0 -5px 0 5px;
+}
+
+.navbar-item.disabled {
+	color: hsla(0, 0%, 100%, 0.5);
+}
+
+/* Dialog Modal */
+#dialog {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	max-width: ;
+	height: 100%;
+	background-color: var(--vscode-scrollbarSlider-background);
+	z-index: 99999;
+}
+
+#dialog hr {
+	border-top: 1px solid var(--vscode-editorGroup-border);
+}
+
+#dialog > div {
+	padding: 1em;
+	border: 2px solid var(--vscode-editorGroup-border);
+	background-color: var(--vscode-editor-background);
+	width: 50%;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 800px;
+}
+
+#dialog .dialog-content, #dialog .dialog-footer {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+#dialog .dialog-content > img {
+	margin-right: 1em;
+}
+
+/* Details View */
+.hidden {
+	display:none;
+}
+
+div.details-view-cnt {
+	position: fixed !important;
+    background-color: var(--vscode-editor-background);
+	border-top-width: 1px;
+	border-top-style: solid;
+	border-top-color: var(--vscode-editorGroup-border);
+	bottom: 45px !important;
+	top: unset !important;
+	padding: 1rem 1rem 0 1rem;
+}
+
+div.details-view-cnt .commit-subject {
+	font-size: 1.4em;
+	font-weight: lighter;
+	margin: 0;
+}
+
+div.details-view-cnt .commit-body,
+div.details-view-cnt .commit-notes {
+	margin: 1em 0;
+	white-space: pre-wrap;
+}
+
+div.details-view-cnt .commit-body:empty,
+div.details-view-cnt .commit-notes:empty {
+	display: none;
+}
+
+#detail-view {
+	display: flex;
+	overflow-y: auto;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	max-height:  100%;
+}
+
+#detail-view .authorAndCommitInfoContainer {
+	flex: 1 1;
+	display: flex;
+	justify-content: space-between;
+}
+#detail-view .authorAndCommitInfoContainer img.avatar {
+    height:80px;
+    width:80px;
+    float: left;
+    margin-right: 0.5em;
+}
+
+#detail-view .action-btn {
+	margin-left: 1rem;
+	margin-right: 1rem;
+	display: inline-block;
+	cursor: pointer;
+	opacity: 0.8;
+	z-index: 5;
+}
+
+#detail-view .action-btn:hover {
+	opacity: 1;
+	transition: opacity 0.3s ease-out;
+}
+
+#detail-view div.actions {
+	white-space: nowrap;
+}
+
+#detail-view .comitted-files {
+	width: 100%;
+}
+
+#detail-view div.actions > .textInput {
+	width: unset;
+}
+
+#detail-view div.actions svg {
+	vertical-align: middle;
+}
+
+.diff-row {
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	margin: 0.5em 0;
+}
+
+.diff-row div.file-name-cnt {
+	flex-grow: 1;
+	white-space: normal;
+	margin-left: .5em;
+}
+
+.file-name-active {
+	color:#91b748;
+}
+
+.file-action {
+	padding: .3em;
+	background: var(--vscode-scrollbarSlider-background);
+}
+
+.file-action a {
+	color: var(--vscode-textLink-foreground);
+	text-decoration: none;
+}
+
+.file-action svg {
+	height: 1.3em;
+	width: 1.3em;
+	vertical-align: bottom;
+}
+
+.file-action .btnx {
+	text-decoration: none;
+	margin-right: 1em;
+}
+
+.file-action .btnx:last-child {
+	margin-right: 0em;
+}
+
+.diff-row {
+	margin-left: 2em;
+	margin-right: 2em;
+	padding-left: .4em;
+	display: flex;
+	justify-content: space-between;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+	border-bottom-color: var(--vscode-editorGroup-border);
+}
+
+.diff-stats .diff-block {
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	margin-left: 1px;
+	color: gray;
+	background-color: currentcolor;
+}
+
+.diff-block.added {
+	background-color: var(--vscode-terminal-ansiGreen);
+}
+
+.diff-block.deleted {
+	background-color: var(--vscode-terminal-ansiRed);
+}
+
+
+/* Dropdown Menu */
+
+.dropdown {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 999;
+}
+
+.dropdown-content a {
+	color: black;
+	padding: 0.2em;
+	text-decoration: none;
+	display: block;
+	white-space: nowrap;
+}
+
+.dropdown-content a:hover {
+	background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropdown-menu {
+    max-height: 500px;
+    overflow-y: auto;
+	overflow-x: hidden;
+	background-color: var(--vscode-input-background);
+}
+
+.dropdown-menu>li>a {
+	color: var(--vscode-input-foreground);
+}
+
+.dropdown-menu>li>a:hover {
+	background-color: var(--vscode-menubar-selectionBackground);
+	color: var(--vscode-input-foreground);
+}
+
+.dropdown-menu>li.divider {
+	background-color: #888888;
+}
+.dropdown-menu > .dropdown-header {
+	padding: 0px 0px;
+}
+
+.btn {
+    color: var(--vscode-input-foreground);
+	background: var(--vscode-input-background);
+	border: 1px solid var(--vscode-input-background);
+	border-radius: 0;
+}
+
+.btn-group-sm>.btn, .btn-sm {
+    border-radius: 0;
+}
+
+.btn:hover, btn:focus {
+    color: var(--vscode-breadcrumb-focusForeground);
+    background: var(--vscode-input-background);
+    border: 1px solid var(--vscode-focusBorder);
+}
+
+.textInput {
+    position: relative;
+    font-size: 12px;
+	padding: 5px 10px;
+	vertical-align: top;
+	width: 250px;
+    color: var(--vscode-input-foreground);
+    background: var(--vscode-input-background);
+    border: 1px solid var(--vscode-input-background);
+    border-radius: 0;
+}
+
+.textInput:focus {
+    outline: none;
+    border: 1px solid var(--vscode-focusBorder);
+}
+

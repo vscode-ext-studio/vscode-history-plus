@@ -1,0 +1,34 @@
+{
+    "compilerOptions": {
+        "strict": true,
+        "lib": [
+            "dom",
+            "es6"
+        ],
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "outDir": "dist",
+        "sourceMap": true,
+        "target": "es6",
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitAny": false,
+        "noImplicitReturns": true,
+        "noImplicitThis": false,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "suppressImplicitAnyIndexErrors": true
+    },
+    "exclude": [
+        "node_modules",
+        "./node_modules",
+        "./node_modules/@types",
+        "/node_modules/@types/**/*",
+        "./temp/**/*",
+        ".vscode-test",
+        "browser",
+        "browser/src/**/*"
+    ]
+}

@@ -1,0 +1,16 @@
+.gitignore
+.github
+.vscode
+
+browser
+coverage
+out
+test
+src
+node_modules
+
+temp
+
+images/**/*.gif
+tsconfig.json
+webpack.config.js

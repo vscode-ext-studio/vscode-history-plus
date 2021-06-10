@@ -1,0 +1,68 @@
+// A launch configuration that compiles the extension and then opens it inside a new window
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Launch Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceRoot}"
+            ],
+            "stopOnEntry": false,
+            "smartStep": true,
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*.js"
+            ],
+            "preLaunchTask": "webpack-dev",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Launch Unit Tests",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "args": [
+                "--inspect-brk",
+                "${workspaceRoot}/node_modules/.bin/jest",
+                "--runInBand",
+                "--config",
+                "${workspaceRoot}/jest.config.js"
+            ],
+            "console": "integratedTerminal",
+            "internalConsoleOptions": "neverOpen",
+            "skipFiles": [
+                "<node_internals>/**"
+            ]
+        },
+        {
+            "name": "Run Extension Tests",
+            "type": "extensionHost",
+            "request": "launch",
+            "runtimeExecutable": "${execPath}",
+            "args": [
+                // Ensure this folder exists.
+                "${workspaceFolder}/temp/testing/test_gitHistory",
+                "--disable-extensions",
+                "--extensionDevelopmentPath=${workspaceFolder}",
+                "--extensionTestsPath=${workspaceFolder}/dist/test/extension/testRunner"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/dist/test/**/*.js"
+            ],
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "env": {
+                "IS_TEST_MODE": "1"
+            },
+            "sourceMaps": true,
+            "internalConsoleOptions": "openOnSessionStart",
+            "preLaunchTask": "test-compile"
+        }
+    ]
+}

@@ -1,0 +1,17 @@
+.DS_Store
+out
+dist
+node_modules
+*.pyc
+**/.vscode/.ropeproject/**
+**/testFiles/**/.cache/**
+*.noseids
+.vscode-test
+coverage/**
+__pycache__
+npm-debug.log
+**/.mypy_cache/**
+!yarn.lock
+coverage/
+temp/**
+package-lock.json
