@@ -6,21 +6,5 @@
         "coverage": true,
         "node_modules": true,
         ".vscode-test": true
-    },
-    "typescript.tsdk": "./node_modules/typescript/lib",
-    "[typescript]": {
-        "editor.formatOnSave": true
-    },
-    "[javascript]": {
-        "editor.formatOnSave": true
-    },
-    "[javascriptreact]": {
-        "editor.formatOnSave": true
-    },
-    "[typescriptreact]": {
-        "editor.formatOnSave": true
-    },
-    "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": true
-    },
+    }
 }
