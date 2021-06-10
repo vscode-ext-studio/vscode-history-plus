@@ -14,6 +14,7 @@ interface CommitProps {
     selectedEntry?: LogEntry;
     theme: string;
     closeCommitView: typeof ResultActions.closeCommitView;
+    onCloseCommitView(): void;
     actionFile: typeof ResultActions.actionFile;
 
 }
@@ -42,6 +43,7 @@ class Commit extends React.Component<CommitProps, CommitState> {
     };
     private onClose = () => {
         this.props.closeCommitView();
+        this.props.onCloseCommitView();
     };
     private renderFileEntries() {
         if (this.state.searchText) {
@@ -128,12 +130,12 @@ function mapStateToProps(state: RootState) {
         return {
             selectedEntry: state.logEntries.selected,
             theme: state.vscode.theme,
-        } as CommitProps;
+        };
     }
     return {
         selectedEntry: undefined,
         theme: state.vscode.theme,
-    } as CommitProps;
+    };
 }
 
 function mapDispatchToProps(dispatch) {

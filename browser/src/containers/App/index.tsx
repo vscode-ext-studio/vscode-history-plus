@@ -21,11 +21,14 @@ type AppProps = {
     search: typeof ResultActions.search;
 } & typeof ResultActions;
 
-interface AppState {}
+interface AppState {
+    percent: string;
+}
 
 class App extends React.Component<AppProps, AppState> {
     constructor(props?: AppProps, context?: any) {
         super(props, context);
+        this.state = { percent: "100%" }
     }
 
     private goBack = async () => {
@@ -49,13 +52,13 @@ class App extends React.Component<AppProps, AppState> {
                     <SplitPane
                         split={this.props.configuration.sideBySide ? 'vertical' : 'horizontal'}
                         pane1Style={{ overflowY: 'auto' }}
-                        defaultSize="50%"
+                        defaultSize={this.state.percent}
                         style={{ paddingTop: '40px' }}
                         primary="first"
                     >
-                        <LogView logEntries={this.props.logEntries} configuration={this.props.configuration}></LogView>
+                        <LogView logEntries={this.props.logEntries} configuration={this.props.configuration} onCommitClick={this.onCommitClick}></LogView>
                         {this.props.logEntries && this.props.logEntries.selected ? (
-                            <Commit />
+                            <Commit onCloseCommitView={this.hiddenCommit} />
                         ) : (
                             <div className="detail-view-info">
                                 <div>Pick a commit from the list to view details</div>
@@ -73,6 +76,18 @@ class App extends React.Component<AppProps, AppState> {
             </div>
         );
     }
+
+    public onCommitClick = () => {
+        if (this.state.percent != '100%') {
+            return;
+        }
+        this.setState({ percent: globalThis.fileName ? "70%" : "50%" })
+    };
+
+    public hiddenCommit = () => {
+        this.setState({ percent: '100%' })
+    }
+
 }
 
 function mapStateToProps(state: RootState) {

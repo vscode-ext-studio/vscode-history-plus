@@ -12,14 +12,15 @@ type LogViewProps = {
     logEntries: LogEntriesState;
     configuration: IConfiguration;
     commitsRendered: typeof ResultActions.commitsRendered;
-    onViewCommit: typeof ResultActions.selectCommit;
+    onViewCommit(hash?: String): void;
+    onCommitClick(): void;
     actionCommit: typeof ResultActions.actionCommit;
     actionRef: typeof ResultActions.actionRef;
     getPreviousCommits: typeof ResultActions.getPreviousCommits;
     getNextCommits: typeof ResultActions.getNextCommits;
 };
 
-interface LogViewState {}
+interface LogViewState { }
 
 class LogView extends React.Component<LogViewProps, LogViewState> {
     private ref: React.RefObject<LogEntryList>;
@@ -70,6 +71,7 @@ class LogView extends React.Component<LogViewProps, LogViewState> {
 
     public onViewCommit = (logEntry: LogEntry) => {
         this.props.onViewCommit(logEntry.hash.full);
+        this.props.onCommitClick();
     };
 
     public onRefAction = (logEntry: LogEntry, ref: Ref, name: string) => {
@@ -132,8 +134,7 @@ class LogView extends React.Component<LogViewProps, LogViewState> {
             case 'reset_soft':
                 this.dialog.showConfirm(
                     `Soft reset to ${entry.hash.short}?`,
-                    `<p><strong>${entry.subject}</strong><br />${
-                        entry.author.name
+                    `<p><strong>${entry.subject}</strong><br />${entry.author.name
                     } on ${entry.author.date.toISOString()}</p><small>All affected files will be merged and kept in local workspace</small>`,
                     DialogType.Info,
                     { entry, name },
@@ -142,8 +143,7 @@ class LogView extends React.Component<LogViewProps, LogViewState> {
             case 'reset_hard':
                 this.dialog.showConfirm(
                     `Hard reset commit to ${entry.hash.short}?`,
-                    `<p><strong>${entry.subject}</strong><br />${
-                        entry.author.name
+                    `<p><strong>${entry.subject}</strong><br />${entry.author.name
                     } on ${entry.author.date.toISOString()}</p><div>This is IRREVERSIBLE TO YOUR CURRENT WORKING SET. UNCOMMITTED LOCAL FILES WILL BE REMOVED</div>`,
                     DialogType.Warning,
                     { entry, name },
