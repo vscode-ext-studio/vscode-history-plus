@@ -23,6 +23,7 @@ html,
 body {
 	background-color: var(--vscode-editor-background);
 	font-family: var(--vscode-font-family);
+	font-size: 13px;
 	height: 100%;
 	width: 100%;
 	overflow: hidden;
@@ -78,6 +79,7 @@ div.appRoot {
 
 div.appRoot > header {
 	z-index: 1000;
+	display: flex;
 }
 
 .log-view {
@@ -88,6 +90,7 @@ div.appRoot > header {
 	position: absolute;
 	top: 0;
 	left: 0;
+	z-index: 99999;
 }
 
 .log-view svg.commitGraph path {
@@ -101,12 +104,11 @@ div.appRoot > header {
 	fill: #333;
 }
 
-
-.log-entry {
+/* .log-entry {
 	border-bottom-width: 1px;
 	border-bottom-style: solid;
 	border-bottom-color: var(--vscode-editorGroup-border);
-}
+} */
 
 .log-entry {
 	position: relative;
@@ -148,7 +150,7 @@ div.appRoot > header {
 .log-entry .media-image > div.buttons > div {
 	/* background-color: var(--vscode-scrollbarSlider-background); */
 	/* padding: .3em .5em .3em 0em; */
-	font-size: 14px;
+	font-size: 13px;
 	font-weight: normal;
 	text-align: right;
 }
@@ -191,7 +193,7 @@ div.appRoot > header {
 }
 
 .commit-author {
-	font-size: 14px;
+	font-size: 13px;
 	margin-top: 0.2em;
 	margin-left: 10px;
 	position: relative;
@@ -289,18 +291,17 @@ div.appRoot > header {
 	background-color: hsla(0, 0%, 100%, 0.12);
 }
 
-.log-entry.active .commit-subject, .log-entry.active .commit-author {
-	color: var(--vscode-textLink-foreground);
+.log-entry.active {
+	background-color:  var(--vscode-editorSuggestWidget-background);
+	/* color: var(--vscode-textLink-foreground); */
 }
 
-.log-entry .media:hover {
+.log-entry:hover {
 	background-color:  var(--vscode-editorSuggestWidget-background);
-	color: var(--vscode-textLink-foreground);
+	/* color: var(--vscode-textLink-foreground); */
 }
 
-.log-entry.loading .media{
-	background-color:  var(--vscode-editorSuggestWidget-background);
-}
+
 
 
 header input, header button {
@@ -567,7 +568,7 @@ header .links {
 }
 
 .file-name-active {
-	color:#91b748;
+	color:var(--vscode-terminal-ansiBrightGreen);
 }
 
 .file-action {
