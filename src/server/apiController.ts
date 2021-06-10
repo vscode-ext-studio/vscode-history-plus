@@ -206,9 +206,19 @@ export class ApiController {
         const handler = new Hanlder(panel)
         handler.on("copyHash", data => {
             env.clipboard.writeText(data)
-        }).on("newTag", async ({ logEntry, value }) => {
+        }).on("newtag", async ({ logEntry, value }) => {
             await this.gitService.createTag(value, logEntry.hash.full);
             logEntry.refs.push({ type: RefType.Tag, name: value });
+        }).on("newbranch", async ({ logEntry, value }) => {
+            await this.gitService.createBranch(value, logEntry.hash.full);
+            logEntry.refs.push({ type: RefType.Head, name: value });
+            handler.emit('newbranch')
+        }).on("reset_soft", async ({ logEntry }) => {
+            await this.gitService.reset(logEntry.hash.full);
+            handler.emit('reset')
+        }).on("reset_hard", async ({ logEntry }) => {
+            await this.gitService.reset(logEntry.hash.full, true);
+            handler.emit('reset')
         })
     }
 

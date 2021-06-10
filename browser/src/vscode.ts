@@ -20,6 +20,7 @@ export const getVscodeEvent = () => {
         emit(event:string, data:any) {
             this.tryInit();
             postMessage({ type: event, content: data })
+            return this;
         },
         tryInit() {
             if (init) return;

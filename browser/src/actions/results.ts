@@ -5,6 +5,8 @@ import { ActionedUser, Avatar, CommittedFile, LogEntriesResponse, LogEntry, Ref 
 import { BranchesState, RootState } from '../reducers';
 import { BranchSelection, Branch } from '../types';
 import { post } from '../actions/messagebus';
+import { getVscodeEvent } from '@/vscode';
+const vscodeEvent = getVscodeEvent();
 
 export const addResults = createAction<Partial<LogEntriesResponse>>(Actions.FETCHED_COMMITS);
 export const updateCommit = createAction<LogEntry>(Actions.FETCHED_COMMIT);
@@ -26,29 +28,14 @@ export namespace ResultActions {
     export const actionCommit = (logEntry: LogEntry, name = '', value = '') => {
         return async (dispatch: Dispatch<any>, getState: () => RootState) => {
             dispatch(notifyIsFetchingCommit(logEntry.hash.full));
-
-            const store = getState();
-
-            post<LogEntry>('doAction', {
-                ...store.settings,
-                logEntry,
-                name,
-                value,
-            }).then(x => {
-                switch (name) {
-                    case 'reset_soft':
-                    case 'reset_hard':
-                        dispatch(ResultActions.refresh());
-                        break;
-                    case 'newtag':
-                        break;
-                    case 'newbranch':
-                        dispatch(ResultActions.getBranches());
-                        break;
-                }
-
-                dispatch(updateCommitInList(x));
-            });
+            console.log('name')
+            vscodeEvent.emit(name, { logEntry, value })
+                .on("reset", () => {
+                    dispatch(ResultActions.refresh());
+                })
+                .on("newbranch", () => {
+                    dispatch(ResultActions.getBranches());
+                })
         };
     };
     export const actionRef = (logEntry: LogEntry, ref: Ref, name = '') => {

@@ -11,7 +11,7 @@ import { LogEntriesState, RootState } from '../../reducers';
 import { IConfiguration } from '../../reducers/vscode';
 import Footer from '../../components/Footer';
 import { ContextMenu } from './ContextMenu';
-import {getVscodeEvent  } from '../../vscode';
+import { getVscodeEvent } from '../../vscode';
 
 const vscodeEvent = getVscodeEvent();
 
@@ -31,7 +31,7 @@ interface AppState {
 }
 
 class App extends React.Component<AppProps, AppState> {
-    logView: LogView;
+    logView: any;
     constructor(props?: AppProps, context?: any) {
         super(props, context);
         this.state = { percent: "100%" }
@@ -49,10 +49,14 @@ class App extends React.Component<AppProps, AppState> {
     private onMenuClick(action: string) {
         switch (action) {
             case "copyHash":
-                vscodeEvent.emit('copyHash',this.state.logEntry?.hash?.full)
+                vscodeEvent.emit('copyHash', this.state.logEntry?.hash?.full)
                 console.log(this.state.logEntry?.hash)
                 break;
-            case "addTag":
+            case "newtag":
+            case "newbranch":
+            case "reset_soft":
+            case "reset_hard":
+                this.logView.onAction(this.state.logEntry, action)
                 break;
         }
     }
@@ -82,7 +86,7 @@ class App extends React.Component<AppProps, AppState> {
                         style={{ paddingTop: '40px' }}
                         primary="first"
                     >
-                        <LogView onRef={ref=>this.logView=ref} logEntries={this.props.logEntries} configuration={this.props.configuration} onCommitClick={this.onCommitClick}></LogView>
+                        <LogView onRef={ref => this.logView = ref} logEntries={this.props.logEntries} configuration={this.props.configuration} onCommitClick={this.onCommitClick}></LogView>
                         {this.props.logEntries && this.props.logEntries.selected ?
                             <Commit onCloseCommitView={this.hiddenCommit} /> :
                             <div className="detail-view-info">
