@@ -147,8 +147,8 @@ div.appRoot > header {
 
 .log-entry .media-image > div.buttons > div {
 	/* background-color: var(--vscode-scrollbarSlider-background); */
-	padding: .3em .5em .3em 0em;
-	font-size: 75%;
+	/* padding: .3em .5em .3em 0em; */
+	font-size: 14px;
 	font-weight: normal;
 	text-align: right;
 }
@@ -205,7 +205,8 @@ div.appRoot > header {
 }
 
 .commit-author .timestamp {
-	opacity: 0.7;
+	/* opacity: 0.7; */
+	margin-right: 10px;
 }
 
 .commit-remote-container,

@@ -6,12 +6,10 @@ export default function HeadRef(props: Ref) {
     return (
         <div className="commit-head-container">
             <div className="refs">
-                <a className="checkout" onClick={() => props.onAction('checkoutBranch')} role="button">
-                    <span>
-                        <GoGitBranch></GoGitBranch>
-                    </span>
-                    <span title={props.name}>{props.name}</span>
-                </a>
+                <span onClick={() => props.onAction('checkoutBranch')}>
+                    <GoGitBranch></GoGitBranch>
+                </span>
+                <span title={props.name} onClick={() => props.onAction('checkoutBranch')}>{props.name}</span>
                 <a className="remove" onClick={() => props.onRemove()} role="button">
                     <GoX></GoX>
                 </a>
