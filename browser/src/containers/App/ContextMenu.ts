@@ -32,6 +32,7 @@ export class ContextMenu {
 <li class="contextMenuItem" m-action="reset_soft" data-index="1">Reset Branch To Here (Soft) </li>
 <li class="contextMenuItem" m-action="reset_hard" data-index="1">Reset Branch To Here (Hard) </li>
 <li class="contextMenuDivider"></li>
+<li class="contextMenuItem" m-action="checkout" data-index="1">Checkout</li>
 <li class="contextMenuItem" m-action="revert" data-index="1">Revert Commit</li>
 <li class="contextMenuItem" m-action="more" data-index="1">More...</li>
 <li class="contextMenuDivider"></li>

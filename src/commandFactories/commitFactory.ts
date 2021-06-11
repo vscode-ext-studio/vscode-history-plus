@@ -33,12 +33,10 @@ export class CommitCommandFactory implements ICommitCommandFactory {
     public async createCommands(commit: CommitDetails): Promise<ICommand<CommitDetails>[]> {
         const commands: ICommand<CommitDetails>[] = [
             new CherryPickCommand(commit, this.cherryPickHandler),
-            new CheckoutCommand(commit, this.checkoutHandler),
-            new ViewDetailsCommand(commit, this.viewChangeLogHandler),
-            new SelectForComparison(commit, this.compareHandler),
-            new CompareCommand(commit, this.compareHandler),
             new MergeCommand(commit, this.mergeHandler),
             new RebaseCommand(commit, this.rebaseHandler),
+            new SelectForComparison(commit, this.compareHandler),
+            new CompareCommand(commit, this.compareHandler),
         ];
 
         return (
