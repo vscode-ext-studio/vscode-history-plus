@@ -516,7 +516,7 @@ export function drawGitGraph(svg: SVGSVGElement, content: HTMLElement, startAt: 
             cx = xFromFictionalBranch;
         }
 
-        const color = branches[branchIndex - 1].color;
+        const color = branches[branchIndex - 1]?.color||COLORS[1];
         svgCircle.setAttribute('style', `fill:${color};stroke:${color};`);
         svgCircle.setAttribute('cx', cx.toString());
         svgCircle.setAttribute('cy', (currentY + circleOffset).toString());
