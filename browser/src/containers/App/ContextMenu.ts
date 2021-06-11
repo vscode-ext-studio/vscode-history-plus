@@ -25,6 +25,7 @@ export class ContextMenu {
         menu = document.createElement('ul');
         menu.className = 'contextMenu'
         menu.id = "menu"
+        // <li class="contextMenuItem" m-action="focusCompare" data-index="8">Open Compare View</li>
         const html = `
 <li class="contextMenuItem" m-action="copyHash" data-index="8">Copy Commit Hash</li>
 <li class="contextMenuDivider"></li>

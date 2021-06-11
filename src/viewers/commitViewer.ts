@@ -1,10 +1,11 @@
 import { inject, injectable } from 'inversify';
 import * as path from 'path';
-import { EventEmitter, TreeDataProvider, TreeItemCollapsibleState, window } from 'vscode';
+import { EventEmitter, TreeDataProvider, TreeItemCollapsibleState, TreeView, window } from 'vscode';
 import { Event, OutputChannel, TreeItem } from 'vscode';
 import { ICommandManager } from '../application/types/commandManager';
 import { CommitDetails, CompareCommitDetails } from '../common/types';
 import { ICommitViewFormatter } from '../formatters/types';
+import { ServiceHolder } from '../ioc/ServiceHolder';
 import { DirectoryTreeItem } from '../nodes/treeNodes';
 import { DirectoryNode, FileNode, INodeBuilder } from '../nodes/types';
 import { IOutputChannel } from '../types';
@@ -16,11 +17,15 @@ export class CommitViewer implements ICommitViewer, TreeDataProvider<DirectoryNo
     private commit?: CommitDetails;
     private _onDidChangeTreeData = new EventEmitter<DirectoryNode | FileNode>();
     private fileView = false;
+    private treeView?: TreeView<DirectoryNode | FileNode>;
     public get onDidChangeTreeData(): Event<DirectoryNode | FileNode> {
         return this._onDidChangeTreeData.event;
     }
     public get selectedCommit(): Readonly<CommitDetails> {
         return this.commit!;
+    }
+    public get treeViewIns(): TreeView<DirectoryNode | FileNode> {
+        return this.treeView!;
     }
     constructor(
         @inject(IOutputChannel) private outputChannel: OutputChannel,
@@ -29,12 +34,23 @@ export class CommitViewer implements ICommitViewer, TreeDataProvider<DirectoryNo
         private nodeBuilder: INodeBuilder,
         private treeId: string,
         private visibilityContextVariable: string,
-    ) {}
+    ) {
+        ServiceHolder.commitViewer = this;
+    }
+
+    public async focus() {
+        const childs = await this.getChildren()
+        if (childs.length > 0) {
+            this.treeView?.reveal(childs[0], { expand: true, focus: true, select: true })
+        }
+    }
+
     public showCommitTree(commit: CommitDetails) {
         this.commit = commit;
 
         if (!this.registered) {
             this.registered = true;
+            // this.treeView = window.createTreeView(this.treeId, { treeDataProvider: this })
             window.registerTreeDataProvider(this.treeId, this);
         }
         this._onDidChangeTreeData.fire();
@@ -84,4 +100,9 @@ export class CommitViewer implements ICommitViewer, TreeDataProvider<DirectoryNo
 
         return [];
     }
+
+    getParent?() {
+        return null;
+    }
+
 }

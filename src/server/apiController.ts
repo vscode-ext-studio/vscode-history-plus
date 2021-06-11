@@ -9,6 +9,7 @@ import { IServiceContainer } from '../ioc/types';
 import { Avatar, BranchSelection, CommittedFile, IGitService, IPostMessage, LogEntry, Ref, RefType } from '../types';
 import { captureTelemetry } from '../common/telemetry';
 import { Hanlder } from './handler';
+import { ServiceHolder } from '../ioc/ServiceHolder';
 
 export class ApiController {
     private readonly commitViewer: IGitCommitViewDetailsCommandHandler;
@@ -170,6 +171,8 @@ export class ApiController {
         }).on("openTerminal",()=>{
             const terminal=window.createTerminal()
             terminal.show()
+        }).on("focusCompare",()=>{
+            ServiceHolder.commitViewer?.focus();
         }).on("newtag", async ({ logEntry, value }) => {
             await this.gitService.createTag(value, logEntry.hash.full);
             logEntry.refs.push({ type: RefType.Tag, name: value });

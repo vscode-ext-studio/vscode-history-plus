@@ -27,7 +27,7 @@ export namespace ResultActions {
 
     export const actionCommit = (logEntry: LogEntry, action = '', value = '') => {
         return async (dispatch: Dispatch<any>, getState: () => RootState) => {
-            if(action!='more')
+            if(action!='more' && action!='focusCompare')
                 dispatch(notifyIsFetchingCommit(logEntry.hash.full));
             vscodeEvent.emit(action, { logEntry, value })
                 .on("reset", () => {
