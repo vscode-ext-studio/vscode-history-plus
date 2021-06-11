@@ -85,12 +85,7 @@ export class ApiController {
     public async getAvatars() {
         const originType = await this.gitService.getOriginType();
         if (!originType) {
-            this.webview.postMessage({
-                cmd: 'getAvatarsResult',
-                error: 'No origin type found',
-            });
-
-            return;
+            return [];
         }
         const providers = this.serviceContainer.getAll<IAvatarProvider>(IAvatarProvider);
         const provider = providers.find(item => item.supported(originType));

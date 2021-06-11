@@ -105,7 +105,7 @@ export class GitHistoryCommandHandler implements IGitHistoryCommandHandler {
         const showFileHistorySplit = this.workspace
             .getConfiguration('gitHistory')
             .get<boolean>('showFileHistorySplit', false);
-        if (showFileHistorySplit && window.activeTextEditor?.document.uri.path == fileUri?.path) {
+        if (showFileHistorySplit && fileUri && window.activeTextEditor?.document.uri.path == fileUri?.path) {
             column = ViewColumn.Two;
         }
 

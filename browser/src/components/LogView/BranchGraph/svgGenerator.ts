@@ -7,11 +7,11 @@ export type BranchGrapProps = {
     updateTick?: number;
 };
 
-let branches: { hash: string; path: any; x?: number; wasFictional: boolean }[] = [];
+let branches: { hash: string; path: any; x?: number; wasFictional: boolean;color:string }[] = [];
 let branchColor = 0;
 let COLORS = [
     '#ffab1d',
-    '#fd8c25', // primary color
+    'var(--vscode-terminal-ansiBrightBlue)', // primary color
     '#f36e4a',
     '#fc6148',
     '#d75ab6',
@@ -263,19 +263,10 @@ class PathGenerator {
     }
 }
 
-let vscodeStyle = null;
-function get(name: string) {
-    return vscodeStyle.getPropertyValue(name)
-}
-
 // TODO: Think about appending (could be very expensive, but could be something worthwhile)
 // Appending could produce a better UX
 // Dunno, I think, cuz this way you can see where merges take place, rather than seeing a line vanish off
 export function drawGitGraph(svg: SVGSVGElement, content: HTMLElement, startAt: number, logEntryHeight = 60.8, entries: LogEntry[], hideGraph = false,) {
-    if (!vscodeStyle) {
-        vscodeStyle = document.documentElement.style
-        COLORS[1] = get('--vscode-terminal-ansiBrightBlue') || '#fd8c25';
-    }
     while (svg.children.length > 0) {
         svg.removeChild(svg.children[0]);
     }
@@ -407,6 +398,7 @@ export function drawGitGraph(svg: SVGSVGElement, content: HTMLElement, startAt: 
                     hash: parent.full,
                     path: svgPath,
                     wasFictional: false,
+                    color:COLORS[branchColor]
                 };
                 if (fictionalBranches.length === 0 || !fictionalBranchesUsed) {
                     // Re-set the fictional branches if they haven't been used
@@ -473,6 +465,7 @@ export function drawGitGraph(svg: SVGSVGElement, content: HTMLElement, startAt: 
                     hash: parent.full,
                     path: svgPath,
                     wasFictional: true,
+                    color:COLORS[branchColor]
                 };
                 branches.splice(index + j, 0, obj);
                 // We need to padd all parent log entries to take this into account
@@ -517,11 +510,14 @@ export function drawGitGraph(svg: SVGSVGElement, content: HTMLElement, startAt: 
         }
 
         const svgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        let cx = ((branchFound || i === 0 ? index : branches.length - 1) + 1) * xOffset;
+        const branchIndex = ((branchFound || i === 0 ? index : branches.length - 1) + 1);
+        let cx = branchIndex * xOffset;
         if (xFromFictionalBranch > 0) {
             cx = xFromFictionalBranch;
         }
 
+        const color = branches[branchIndex - 1].color;
+        svgCircle.setAttribute('style', `fill:${color};stroke:${color};`);
         svgCircle.setAttribute('cx', cx.toString());
         svgCircle.setAttribute('cy', (currentY + circleOffset).toString());
         svgCircle.setAttribute('r', '4');

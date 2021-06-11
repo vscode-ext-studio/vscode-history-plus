@@ -1,7 +1,7 @@
 import { getVscodeEvent } from '@/vscode';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
-import { GoMarkGithub, GoTerminal } from 'react-icons/go';
+import { GoGitBranch, GoTerminal } from 'react-icons/go';
 import { connect } from 'react-redux';
 import { ResultActions } from '../../actions/results';
 import { BranchesState, RootState } from '../../reducers/index';
@@ -76,7 +76,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
 
         return (
             <a className="hint--right hint--rounded hint--bounce" aria-label="Open Remote Repository" href={selectedBranch.remote} >
-                <GoMarkGithub />
+                <GoGitBranch />
             </a>
         );
     }
@@ -93,7 +93,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         }
     };
 
-    private openTerminal=()=>{
+    private openTerminal = () => {
         vscodeEvent.emit("openTerminal")
     }
 
@@ -121,7 +121,7 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 </Button>
                 <span className={'links'}>{this.remoteLink()}</span>
                 <span className={'links'}>
-                    <a className="hint--right hint--rounded hint--bounce" aria-label="Open Remote Repository" onClick={this.openTerminal} >
+                    <a className="hint--right hint--rounded hint--bounce" aria-label="Create Terminal" onClick={this.openTerminal} >
                         <GoTerminal />
                     </a>
                 </span>
