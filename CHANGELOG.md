@@ -1,5 +1,10 @@
 # Changelog
 
+# 1.1.0 2021-6-11
+
+- More some feature to context menu.
+- Update history view.
+
 ## 1.0.0 2021-6-10
 
 - Remove coding rule of source code.
