@@ -1,12 +1,15 @@
+import { getVscodeEvent } from '@/vscode';
 import * as React from 'react';
 import { Button } from 'react-bootstrap';
+import { GoMarkGithub, GoTerminal } from 'react-icons/go';
 import { connect } from 'react-redux';
 import { ResultActions } from '../../actions/results';
-import { RootState, BranchesState } from '../../reducers/index';
+import { BranchesState, RootState } from '../../reducers/index';
+import { ISettings } from '../../types';
 import Author from './author';
 import Branch from './branch';
-import { ISettings } from '../../types';
-import { GoMarkGithub, GoBrowser } from 'react-icons/go';
+
+const vscodeEvent = getVscodeEvent();
 
 interface HeaderProps {
     isLoading?: boolean;
@@ -90,6 +93,10 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
         }
     };
 
+    private openTerminal=()=>{
+        vscodeEvent.emit("openTerminal")
+    }
+
     public render() {
         return (
             <header>
@@ -113,6 +120,11 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                     Refresh
                 </Button>
                 <span className={'links'}>{this.remoteLink()}</span>
+                <span className={'links'}>
+                    <a className="hint--right hint--rounded hint--bounce" aria-label="Open Remote Repository" onClick={this.openTerminal} >
+                        <GoTerminal />
+                    </a>
+                </span>
             </header>
         );
     }

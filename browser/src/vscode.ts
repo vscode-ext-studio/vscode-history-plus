@@ -17,7 +17,7 @@ export const getVscodeEvent = () => {
             events[event] = callback
             return this;
         },
-        emit(event:string, data:any) {
+        emit(event:string, data?:any) {
             this.tryInit();
             postMessage({ type: event, content: data })
             return this;

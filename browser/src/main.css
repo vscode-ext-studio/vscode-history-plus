@@ -302,7 +302,9 @@ div.appRoot > header {
 }
 
 
-
+.hint--right{
+	color: var(--vscode-tab-activeForeground);
+}
 
 header input, header button {
     margin: 0.2em;
