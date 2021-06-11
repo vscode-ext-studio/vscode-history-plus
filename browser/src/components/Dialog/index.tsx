@@ -185,6 +185,7 @@ export default class Dialog extends React.Component<DialogProps, DialogState> {
             {
                 show: true,
                 input: true,
+                value:'',
                 title,
                 description,
                 placeholder,

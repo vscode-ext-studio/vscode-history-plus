@@ -173,10 +173,11 @@ export class ApiController {
         }).on("newtag", async ({ logEntry, value }) => {
             await this.gitService.createTag(value, logEntry.hash.full);
             logEntry.refs.push({ type: RefType.Tag, name: value });
+            handler.emit('newtag',logEntry)
         }).on("newbranch", async ({ logEntry, value }) => {
             await this.gitService.createBranch(value, logEntry.hash.full);
             logEntry.refs.push({ type: RefType.Head, name: value });
-            handler.emit('newbranch')
+            handler.emit('newbranch',logEntry)
         }).on("reset_soft", async ({ logEntry }) => {
             await this.gitService.reset(logEntry.hash.full);
             handler.emit('reset')

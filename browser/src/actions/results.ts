@@ -25,15 +25,20 @@ export const fetchedAuthors = createAction<ActionedUser[]>(Actions.FETCHED_AUTHO
 export namespace ResultActions {
     export const commitsRendered = createAction<number>(Actions.COMMITS_RENDERED);
 
-    export const actionCommit = (logEntry: LogEntry, name = '', value = '') => {
+    export const actionCommit = (logEntry: LogEntry, action = '', value = '') => {
         return async (dispatch: Dispatch<any>, getState: () => RootState) => {
-            dispatch(notifyIsFetchingCommit(logEntry.hash.full));
-            vscodeEvent.emit(name, { logEntry, value })
+            if(action!='more')
+                dispatch(notifyIsFetchingCommit(logEntry.hash.full));
+            vscodeEvent.emit(action, { logEntry, value })
                 .on("reset", () => {
                     dispatch(ResultActions.refresh());
                 })
-                .on("newbranch", () => {
+                .on("newbranch", (x) => {
                     dispatch(ResultActions.getBranches());
+                    dispatch(updateCommitInList(x));
+                })
+                .on("newtag", (x) => {
+                    dispatch(updateCommitInList(x));
                 })
         };
     };

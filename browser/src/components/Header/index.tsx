@@ -119,12 +119,12 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                 <Button bsSize="small" disabled={this.state.isLoading} onClick={this.onRefresh}>
                     Refresh
                 </Button>
-                <span className={'links'}>{this.remoteLink()}</span>
                 <span className={'links'}>
                     <a className="hint--right hint--rounded hint--bounce" aria-label="Create Terminal" onClick={this.openTerminal} >
                         <GoTerminal />
                     </a>
                 </span>
+                <span className={'links'}>{this.remoteLink()}</span>
             </header>
         );
     }
