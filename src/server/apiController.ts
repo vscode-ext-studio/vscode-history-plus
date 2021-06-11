@@ -1,4 +1,4 @@
-import { env, Uri, ViewColumn, Webview, WebviewPanel, window } from 'vscode';
+import { commands, env, Uri, ViewColumn, Webview, WebviewPanel, window } from 'vscode';
 import { IAvatarProvider } from '../adapter/avatar/types';
 import { GitOriginType } from '../adapter/repository/index';
 import { IApplicationShell } from '../application/types';
@@ -168,19 +168,23 @@ export class ApiController {
         const handler = new Hanlder(panel)
         handler.on("copyHash", data => {
             env.clipboard.writeText(data)
-        }).on("openTerminal",()=>{
-            const terminal=window.createTerminal()
+        }).on("openTerminal", () => {
+            const terminal = window.createTerminal()
             terminal.show()
-        }).on("focusCompare",()=>{
+        }).on("focusCompare", () => {
             ServiceHolder.commitViewer?.focus();
         }).on("newtag", async ({ logEntry, value }) => {
             await this.gitService.createTag(value, logEntry.hash.full);
             logEntry.refs.push({ type: RefType.Tag, name: value });
-            handler.emit('newtag',logEntry)
+            handler.emit('newtag', logEntry)
         }).on("newbranch", async ({ logEntry, value }) => {
             await this.gitService.createBranch(value, logEntry.hash.full);
             logEntry.refs.push({ type: RefType.Head, name: value });
-            handler.emit('newbranch',logEntry)
+            handler.emit('newbranch', logEntry)
+        }).on("revert", async ({ logEntry }) => {
+            const gitRoot = this.gitService.getGitRoot();
+            const branch = this.gitService.getCurrentBranch();
+            this.commandManager.executeCommand('git.commit.revert', new CommitDetails(gitRoot, branch, logEntry),);
         }).on("reset_soft", async ({ logEntry }) => {
             await this.gitService.reset(logEntry.hash.full);
             handler.emit('reset')

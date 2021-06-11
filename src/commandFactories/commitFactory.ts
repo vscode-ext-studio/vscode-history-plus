@@ -36,7 +36,6 @@ export class CommitCommandFactory implements ICommitCommandFactory {
             new CheckoutCommand(commit, this.checkoutHandler),
             new ViewDetailsCommand(commit, this.viewChangeLogHandler),
             new SelectForComparison(commit, this.compareHandler),
-            new RevertCommand(commit, this.revertHandler),
             new CompareCommand(commit, this.compareHandler),
             new MergeCommand(commit, this.mergeHandler),
             new RebaseCommand(commit, this.rebaseHandler),
