@@ -80,7 +80,7 @@ class Commit extends React.Component<CommitProps, CommitState> {
         return (
             <div id="detail-view">
                 <div className="authorAndCommitInfoContainer">
-                    <div style={{ minWidth: '80px' }}>
+                    <div style={{ minWidth: '20px' }}>
                         <Avatar result={this.props.selectedEntry.author}></Avatar>
                     </div>
                     <div style={{ flexGrow: 1 }}>

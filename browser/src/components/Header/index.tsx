@@ -108,14 +108,14 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
                     onKeyDown={this.handleKeyDown}
                     onChange={this.handleSearchChange}
                 />
+                <Button bsSize="small" disabled={this.state.isLoading} onClick={this.onClear}>
+                    Clear
+                </Button>
                 <Button bsSize="small" disabled={this.state.isLoading} onClick={this.onSearch}>
                     {this.state.isLoading ? 'Loading...' : 'Search'}
                 </Button>
                 <Branch></Branch>
                 <Author></Author>
-                <Button bsSize="small" disabled={this.state.isLoading} onClick={this.onClear}>
-                    Clear
-                </Button>
                 <Button bsSize="small" disabled={this.state.isLoading} onClick={this.onRefresh}>
                     Refresh
                 </Button>

@@ -123,7 +123,7 @@ class LogEntryView extends React.Component<ResultListProps, {}> {
                                 {this.renderHeadRef()}
                                 {this.renderTagRef()}
                             </div>
-                            <div>
+                            <div className="history-info">
                                 <Avatar result={this.props.logEntry.author}></Avatar>
                                 <Author result={this.props.logEntry.author}></Author>
                             </div>

@@ -194,10 +194,13 @@ div.appRoot > header {
     margin:0.4em 0.4em 0em 0em;
 }
 
+.history-info{
+	margin-left: 10px;
+}
+
 .commit-author {
 	font-size: 13px;
 	margin-top: 0.2em;
-	margin-left: 10px;
 	position: relative;
 	white-space: nowrap;
 	display: inline-block;
@@ -623,9 +626,8 @@ header .links {
 }
 
 .diff-row {
-	margin-left: 2em;
+	margin-left: 20px;
 	margin-right: 2em;
-	padding-left: .4em;
 	display: flex;
 	justify-content: space-between;
 	border-bottom-width: 1px;
