@@ -72,13 +72,13 @@ export class GitCommandExecutor implements IGitCommandExecutor {
             gitShow.on('error', reject);
             gitShow.on('close', code => {
                 this.loggers.forEach(logger => {
-                    logger.log('git', ...args, ` (completed in ${stopWatch.elapsedTime / 1000}s)`);
+                    // logger.log('git', ...args, ` (completed in ${stopWatch.elapsedTime / 1000}s)`);
                 });
 
                 if (code === 0) {
                     const stdOut = binaryOuput ? undefined : decode(stdout, childProcOptions.encoding);
                     this.loggers.forEach(logger => {
-                        logger.trace(binaryOuput ? '<binary>' : stdout);
+                        // logger.trace(binaryOuput ? '<binary>' : stdout);
                     });
                     resolve(stdOut);
                 } else {
