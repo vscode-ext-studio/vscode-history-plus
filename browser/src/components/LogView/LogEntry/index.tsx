@@ -125,7 +125,7 @@ class LogEntryView extends React.Component<ResultListProps, {}> {
                             </div>
                             <div className="history-info">
                                 <Avatar result={this.props.logEntry.author}></Avatar>
-                                <Author result={this.props.logEntry.author}></Author>
+                                <Author hash={this.props.logEntry?.hash?.short} result={this.props.logEntry.author}></Author>
                             </div>
                         </div>
                     </div>
