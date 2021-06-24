@@ -2,14 +2,14 @@
   "name": "git-history-plus",
   "displayName": "Git History Plus",
   "description": "View git log, file history, compare branches or commits",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "publisher": "cweijan",
   "author": "cweijan",
   "license": "MIT",
   "homepage": "https://github.com/cweijan/vscode-history-plus/blob/master/README.md",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cweijan/vscode-history-plus.git"
+    "url": "https://github.com/cweijan/vscode-history-plus.git"
   },
   "icon": "images/icon.png",
   "bugs": {
