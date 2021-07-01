@@ -1,5 +1,9 @@
 # Changelog
 
+# 1.2.0 2021-7-11
+
+- Add quick sync command(Ctrl+Alt+p).
+
 # 1.1.0 2021-6-11
 
 - More some feature to context menu.
