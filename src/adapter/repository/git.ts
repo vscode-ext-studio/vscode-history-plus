@@ -30,6 +30,10 @@ export class Git implements IGitService {
         this.remotesService = new GitRemoteService(repo, this.gitCmdExecutor);
     }
 
+    public getRepository():Repository{
+        return this.repo;
+    }
+
     /**
      * Used to differentiate between repository being cached using the @cache decorator
      */

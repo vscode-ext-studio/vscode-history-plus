@@ -70,6 +70,11 @@
         "title": "Git: View Line History"
       },
       {
+        "command": "git.quickSync",
+        "title": "Quick sync repository.",
+        "icon": "$(sync)"
+      },
+      {
         "command": "git.viewHistory",
         "title": "Git: View History (git log)",
         "icon": "$(history)"
@@ -193,6 +198,11 @@
         }
       ],
       "scm/title": [
+        {
+          "command": "git.quickSync",
+          "group": "navigation",
+          "when": "config.git.enabled && gitOpenRepositoryCount != 0"
+        },
         {
           "command": "git.viewHistory",
           "group": "navigation",

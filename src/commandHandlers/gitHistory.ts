@@ -1,6 +1,6 @@
 import { inject, injectable } from 'inversify';
 import * as path from 'path';
-import { Uri, ViewColumn, window } from 'vscode';
+import { commands, Uri, ViewColumn, window } from 'vscode';
 import { ICommandManager } from '../application/types';
 import { FileCommitDetails } from '../common/types';
 import { previewUri } from '../constants';
@@ -59,6 +59,23 @@ export class GitHistoryCommandHandler implements IGitHistoryCommandHandler {
 
         return this.viewHistory(fileUri, currentLineNumber);
     }
+
+    @command('git.quickSync', IGitHistoryCommandHandler)
+    public async quickSync(): Promise<void> {
+
+        const gitServiceFactory = this.serviceContainer.get<IGitServiceFactory>(IGitServiceFactory);
+        const gitService = await gitServiceFactory.createGitService(undefined);
+        const repo:Repository=gitService.getRepository()
+        if(!repo.inputBox.value){
+            repo.inputBox.value='Quick Sync'
+        }
+        commands.executeCommand("git.stageAll").then(() => {
+            commands.executeCommand("git.commitStaged").then(() => {
+                commands.executeCommand("git.sync")
+            });
+        });
+    }
+
     @command('git.viewHistory', IGitHistoryCommandHandler)
     public async viewBranchHistory(repo?: Repository | Uri): Promise<void> {
         if (repo instanceof Uri) {

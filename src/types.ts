@@ -131,6 +131,7 @@ export const IGitService = Symbol.for('IGitService');
 export const IOutputChannel = Symbol.for('IOutputChannel');
 
 export interface IGitService {
+    getRepository();
     getGitRoot(): string;
     getGitRelativePath(file: Uri): string;
     getHeadHashes(): { ref?: string; hash?: string }[];
