@@ -76,7 +76,7 @@ export class GitHistoryCommandHandler implements IGitHistoryCommandHandler {
                 });
             });
         }else{
-            commands.executeCommand("git.pull")
+            commands.executeCommand("git.sync")
         }
 
     }
