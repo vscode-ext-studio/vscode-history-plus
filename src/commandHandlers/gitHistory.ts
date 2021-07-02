@@ -65,15 +65,20 @@ export class GitHistoryCommandHandler implements IGitHistoryCommandHandler {
 
         const gitServiceFactory = this.serviceContainer.get<IGitServiceFactory>(IGitServiceFactory);
         const gitService = await gitServiceFactory.createGitService(undefined);
-        const repo:Repository=gitService.getRepository()
-        if(!repo.inputBox.value){
-            repo.inputBox.value='Quick Sync'
-        }
-        commands.executeCommand("git.stageAll").then(() => {
-            commands.executeCommand("git.commitStaged").then(() => {
-                commands.executeCommand("git.sync")
+        const repo: Repository = gitService.getRepository()
+        if (repo.state.workingTreeChanges.length > 0 || repo.state.indexChanges.length > 0) {
+            if (!repo.inputBox.value) {
+                repo.inputBox.value = 'Quick Sync'
+            }
+            commands.executeCommand("git.stageAll").then(() => {
+                commands.executeCommand("git.commitStaged").then(() => {
+                    commands.executeCommand("git.sync")
+                });
             });
-        });
+        }else{
+            commands.executeCommand("git.pull")
+        }
+
     }
 
     @command('git.viewHistory', IGitHistoryCommandHandler)
