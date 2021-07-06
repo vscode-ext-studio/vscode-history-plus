@@ -2,7 +2,7 @@
   "name": "git-history-plus",
   "displayName": "Git History Plus",
   "description": "View git log, file history, compare branches or commits",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "publisher": "cweijan",
   "author": "cweijan",
   "license": "MIT",
