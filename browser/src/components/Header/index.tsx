@@ -74,8 +74,13 @@ export class Header extends React.Component<HeaderProps, HeaderState> {
             return <span></span>;
         }
 
+        let url:string=selectedBranch.remote;
+        if(url.startsWith("git@")){
+            url=url.replace(":","/").replace("git@","https://").replace(".git","")
+        }
+        
         return (
-            <a className="hint--right hint--rounded hint--bounce" aria-label="Open Remote Repository" href={selectedBranch.remote} >
+            <a className="hint--right hint--rounded hint--bounce" aria-label="Open Remote Repository" href={url} >
                 <GoGitBranch />
             </a>
         );
