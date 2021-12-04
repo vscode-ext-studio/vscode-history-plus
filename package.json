@@ -2,7 +2,7 @@
   "name": "git-history-plus",
   "displayName": "Git History Plus",
   "description": "View git log, file history, compare branches or commits",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "publisher": "cweijan",
   "author": "cweijan",
   "license": "MIT",
@@ -72,7 +72,7 @@
       {
         "command": "git.quickSync",
         "title": "Quick sync repository.",
-        "icon": "$(sync)"
+        "icon": "$(breakpoints-activate)"
       },
       {
         "command": "git.viewHistory",
@@ -204,7 +204,7 @@
       "scm/title": [
         {
           "command": "git.quickSync",
-          "group": "navigation",
+          "group": "navigation@-100",
           "when": "config.git.enabled && gitOpenRepositoryCount != 0"
         },
         {
