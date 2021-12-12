@@ -577,6 +577,7 @@ header .links {
 
 #detail-view div.actions > .textInput {
 	width: unset;
+	border-radius: 5px;
 }
 
 #detail-view div.actions svg {
@@ -600,9 +601,17 @@ header .links {
 	color:var(--vscode-terminal-ansiBrightGreen);
 }
 
+.file-name{
+	min-width: 400px;
+    display: inline-block;
+}
+
 .file-action {
+	display: inline-block;
+	margin-left: 50px;
+	border-radius: 5px;
 	padding: .3em;
-	background: var(--vscode-scrollbarSlider-background);
+	/* background: var(--vscode-scrollbarSlider-background); */
 }
 
 .file-action a {

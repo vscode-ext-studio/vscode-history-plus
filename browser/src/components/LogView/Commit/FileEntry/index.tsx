@@ -1,6 +1,6 @@
 import { CommittedFile, Status } from '../../../../definitions';
 import * as React from 'react';
-import { GoEye, GoGitCompare, GoHistory } from 'react-icons/go';
+import { GoEye, GoGitCompare, GoHistory, GoIssueOpened } from 'react-icons/go';
 
 interface FileEntryProps {
     committedFile: CommittedFile;
@@ -87,50 +87,60 @@ export class FileEntry extends React.Component<FileEntryProps> {
                         {constFileMovementSymbol}
                         {this.props.committedFile.relativePath}
                     </span>
-                </div>
-                <div className="file-action">
-                    <span
-                        role="button"
-                        className="btnx hint--left hint--rounded hint--bounce"
-                        aria-label="View file content"
-                    >
-                        <a role="button" onClick={() => this.props.onAction(this.props.committedFile, 'view')}>
-                            <GoEye></GoEye> View
-                        </a>
-                    </span>
-                    <span
-                        role="button"
-                        className="btnx hint--left hint--rounded hint--bounce"
-                        aria-label="Compare file with current workspace"
-                    >
-                        <a
+
+                    <div className="file-action">
+                        <span
                             role="button"
-                            onClick={() => this.props.onAction(this.props.committedFile, 'compare_workspace')}
+                            className="btnx hint--left hint--rounded hint--bounce"
+                            aria-label="View file content"
                         >
-                            <GoGitCompare></GoGitCompare> Workspace
-                        </a>
-                    </span>
-                    <span
-                        role="button"
-                        className="btnx hint--left hint--rounded hint--bounce"
-                        aria-label="Compare file with previous commit"
-                    >
-                        <a
+                            <a role="button" onClick={() => this.props.onAction(this.props.committedFile, 'view')}>
+                                <GoEye></GoEye> Content
+                            </a>
+                        </span>
+                        <span
                             role="button"
-                            onClick={() => this.props.onAction(this.props.committedFile, 'compare_previous')}
+                            className="btnx hint--left hint--rounded hint--bounce"
+                            aria-label="Compare file with current workspace"
                         >
-                            <GoGitCompare></GoGitCompare> Previous
-                        </a>
-                    </span>
-                    <span
-                        role="button"
-                        className="btnx hint--left hint--rounded hint--bounce"
-                        aria-label="View file history"
-                    >
-                        <a role="button" onClick={() => this.props.onAction(this.props.committedFile, 'history')}>
-                            <GoHistory></GoHistory> History
-                        </a>
-                    </span>
+                            <a
+                                role="button"
+                                onClick={() => this.props.onAction(this.props.committedFile, 'compare_workspace')}
+                            >
+                                <GoGitCompare></GoGitCompare> Current
+                            </a>
+                        </span>
+                        <span
+                            role="button"
+                            className="btnx hint--left hint--rounded hint--bounce"
+                            aria-label="Compare file with previous commit"
+                        >
+                            <a
+                                role="button"
+                                onClick={() => this.props.onAction(this.props.committedFile, 'compare_previous')}
+                            >
+                                <GoGitCompare></GoGitCompare> Previous
+                            </a>
+                        </span>
+                        <span
+                            role="button"
+                            className="btnx hint--left hint--rounded hint--bounce"
+                            aria-label="View file history"
+                        >
+                            <a role="button" onClick={() => this.props.onAction(this.props.committedFile, 'history')}>
+                                <GoHistory></GoHistory> History
+                            </a>
+                        </span>
+                        <span
+                            role="button"
+                            className="btnx hint--left hint--rounded hint--bounce"
+                            aria-label="View file history"
+                        >
+                            <a role="button" onClick={() => this.props.onAction(this.props.committedFile, 'open')}>
+                                <GoIssueOpened></GoIssueOpened> Open Current
+                            </a>
+                        </span>
+                    </div>
                 </div>
             </div>
         );

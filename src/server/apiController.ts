@@ -1,4 +1,4 @@
-import { commands, env, Uri, ViewColumn, Webview, WebviewPanel, window } from 'vscode';
+import { commands, env, Uri, ViewColumn, Webview, WebviewPanel, window, workspace } from 'vscode';
 import { IAvatarProvider } from '../adapter/avatar/types';
 import { GitOriginType } from '../adapter/repository/index';
 import { IApplicationShell } from '../application/types';
@@ -142,6 +142,9 @@ export class ApiController {
             case 'view':
                 await this.commandManager.executeCommand('git.commit.FileEntry.ViewFileContents', fileCommitDetails);
                 break;
+            case 'open':
+                const document = await workspace.openTextDocument(workspace.rootPath+"/"+committedFile.relativePath);
+                return await window.showTextDocument(document);
             case 'compare_workspace':
                 this.webviewPanel.reveal(ViewColumn.One)
                 await this.commandManager.executeCommand(
@@ -212,7 +215,7 @@ export class ApiController {
                 payload: result,
             });
         } catch (ex) {
-            this.applicationShell.showErrorMessage(ex);
+            this.applicationShell.showErrorMessage(ex as string);
             this.webview.postMessage({
                 requestId: message.requestId,
                 error: ex,
