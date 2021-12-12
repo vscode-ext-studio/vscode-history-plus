@@ -82,7 +82,7 @@ export class FileEntry extends React.Component<FileEntryProps> {
                 </div>
                 <div>{this.renderStatus()}</div>
                 <div className="file-name-cnt">
-                    <span className={fileNameClass} onClick={() => this.props.onAction(this.props.committedFile, 'compare_previous')}>
+                    <span className={fileNameClass}>
                         {oldFile}
                         {constFileMovementSymbol}
                         {this.props.committedFile.relativePath}
