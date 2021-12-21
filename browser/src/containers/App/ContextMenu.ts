@@ -18,6 +18,8 @@ function adjustPosition(menu: HTMLElement, event: MouseEvent): void {
 export class ContextMenu {
     public static create(event: MouseEvent): void {
         event.stopPropagation()
+        event.stopImmediatePropagation()
+        event.preventDefault()
         let menu = document.getElementById('menu');
         if (menu != null) {
             adjustPosition(menu, event);
