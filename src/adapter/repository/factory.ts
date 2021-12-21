@@ -87,7 +87,7 @@ export class GitServiceFactory implements IGitServiceFactory {
         }
 
         if (resourceUri) {
-            // find the correct repository from the given resource uri
+            // find the correct repository from the given resource uri sdfsdfsdf
             let i = 0;
             for (const x of gitApi.repositories) {
                 if (
